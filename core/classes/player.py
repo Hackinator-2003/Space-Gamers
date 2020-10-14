@@ -2,7 +2,7 @@
 
 class player():
 
-    def __init__(self):
+    def __init__(self,position,Pv=3):
         self.pos=position
-        self.Pv=3
+        self.Pv=Pv
 
