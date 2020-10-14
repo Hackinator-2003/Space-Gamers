@@ -33,7 +33,10 @@ class PygameGui():
         self.monde = monde
         self.running = False
         self.size = size
+        self.fond=pygame.image.load("core/rsc/img/game-over.png")
         pygame.init()
+
+
 
 
 #######################################################################################################################################################
@@ -42,9 +45,13 @@ class PygameGui():
 
 
 
+
     # Méthode du lancement de la boucle principale
     def start(self):
         self.screen = pygame.display.set_mode(self.size)
+        self.screen.blit(self.fond,(0,0))
+        pygame.display.flip()
+
         pygame.display.set_caption("Space Invader")
         self.__mainLoop()
 
