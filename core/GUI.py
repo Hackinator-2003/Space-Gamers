@@ -33,8 +33,9 @@ class PygameGui():
         self.monde = monde
         self.running = False
         self.size = size
-        self.fond=pygame.image.load("core/rsc/img/game-over.png")
+        self.fond = pygame.image.load("core/rsc/img/game-over.png")
         pygame.init()
+        self.dt = 0
 
 
 
@@ -51,7 +52,6 @@ class PygameGui():
         self.screen = pygame.display.set_mode(self.size)
         self.screen.blit(self.fond,(0,0))
         pygame.display.flip()
-
         pygame.display.set_caption("Space Invader")
         self.__mainLoop()
 
@@ -67,6 +67,10 @@ class PygameGui():
             # Calculation du delaTime utile pour les transitions
             self.dt = clock.tick()/1000
             exec_ += self.dt
+            if exec_>=1:
+                point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
+                self.screen.blit(point_de_vie,(0,0))
+                pygame.display.flip()
 
             pos = pygame.mouse.get_pos()
 
