@@ -1,2 +1,4 @@
 2020-10-14 11:30:37,202 <game.py:6 -             __init__()> [DEBUG] Instance done !
 2020-10-14 11:30:37,206 <game.py:9 -                start()> [INFO ] game starting
+2020-10-14 11:33:24,868 <game.py:6 - __init__()> [DEBUG] Instance done !
+2020-10-14 11:33:24,870 <game.py:9 - start()> [INFO ] game starting
