@@ -28,7 +28,7 @@ class PygameGui():
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
 
     #Initialisation de la classe PygameGui et de ses attributs
-    def __init__(self,monde,size=(300,700)):
+    def __init__(self,monde,size=(550,700)):
         self.screen = None
         self.monde = monde
         self.running = False
@@ -40,16 +40,12 @@ class PygameGui():
 
 ################################################## DEFINITION DES METHODES DE LA CLASSE PYGAMEGUI #####################################################
 
-    #Méthode dessinant le contenu de la fenêtre
-    def draw(self):
-        square_tile_sizeX = self.size[0]
-        square_tile_sizeY = self.size[1]
 
 
     # Méthode du lancement de la boucle principale
     def start(self):
         self.screen = pygame.display.set_mode(self.size)
-        pygame.display.set_caption("Simulation d'un écosystème")
+        pygame.display.set_caption("Space Invader")
         self.__mainLoop()
 
     # Méthode de la boucle principale
@@ -65,9 +61,6 @@ class PygameGui():
             self.dt = clock.tick()/1000
             exec_ += self.dt
 
-
-            self.draw()
-
             pos = pygame.mouse.get_pos()
 
             for event in pygame.event.get():
@@ -81,13 +74,6 @@ class PygameGui():
 
                     # Si clic droit, on execute la raction liée à clic droit
                     if event.button == 3:self.right_click(pos) #
-
-
-            # Réaction après l'event de garder les touches Q (A sur Qwerty)ou D appuyées
-            keys = pygame.key.get_pressed()
-            if keys[pygame.K_a]:self.left_click(pos)
-            if keys[pygame.K_d]:self.right_click(pos)
-
 
 
     # Réaction après l'event de clic droit
