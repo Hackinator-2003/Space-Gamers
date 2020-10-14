@@ -1,4 +1,4 @@
-from random import randint
+﻿from random import randint
 
 class Enemy():
 
