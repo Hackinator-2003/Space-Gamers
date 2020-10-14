@@ -1,8 +1,10 @@
 # By Cypooos
 from shutil import copyfile
 import os
+import logging
 
 def get_config(option="conf.ini",default="core/default.ini"):
+    logging.debug("loading configuration=",option,"and default=",default)
     assert os.path.isfile(default)
     if not os.path.isfile(option):copyfile(default, option)
     default_conf = get_config_dict(default)
