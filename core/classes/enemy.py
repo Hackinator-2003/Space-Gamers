@@ -8,4 +8,4 @@ class Enemy():
 
     def __init__(self,position,Pv=None):
         self.pos=position
-        self.Pv==None: self.Pv=randint(self.start_pv[0],self.start_pv[1])
+        if self.Pv==None: self.Pv=randint(self.start_pv[0],self.start_pv[1])
