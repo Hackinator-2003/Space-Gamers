@@ -1,4 +1,4 @@
-﻿# By Cypooos
+﻿
 from shutil import copyfile
 import os
 import logging

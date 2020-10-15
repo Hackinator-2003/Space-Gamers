@@ -3,7 +3,7 @@
 
 import pygame
 from core.classes.enemy import Enemy
-from core.classes.player import Player
+from core.classes.player import*
 from core.classes.Boss import Boss
 
 #######################################################################################################################################
@@ -67,10 +67,25 @@ class PygameGui():
             # Calculation du delaTime utile pour les transitions
             self.dt = clock.tick()/1000
             exec_ += self.dt
-            if exec_>=1:
+
+
+            if player.Pv==3:
                 point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
+
+            elif player.Pv==2:
+                point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
+                self.screen.blit(point_de_vie,(0,0))
+                pygame.display.flip()
+
+            elif player.Pv==1:
+                point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
+                self.screen.blit(point_de_vie,(0,0))
+                pygame.display.flip()
+
+
+
 
             pos = pygame.mouse.get_pos()
 
