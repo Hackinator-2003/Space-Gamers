@@ -33,7 +33,7 @@ class PygameGui():
         self.monde = monde
         self.running = False
         self.size = size
-        self.fond = pygame.image.load("core/rsc/img/game-over.png")
+        self.fond = pygame.image.load("core/rsc/img/space.jpg")
         pygame.init()
         self.dt = 0
 
@@ -81,6 +81,10 @@ class PygameGui():
 
             elif player.Pv==1:
                 point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
+                self.screen.blit(point_de_vie,(0,0))
+                pygame.display.flip()
+            elif player.Pv==0:
+                point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
 
