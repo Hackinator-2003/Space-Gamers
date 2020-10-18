@@ -3,7 +3,6 @@
 
 import pygame
 from core.classes.enemy import Enemy
-from core.classes.player import*
 from core.classes.Boss import Boss
 
 #######################################################################################################################################
@@ -28,9 +27,9 @@ class PygameGui():
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
 
     #Initialisation de la classe PygameGui et de ses attributs
-    def __init__(self,monde,size=(550,700)):
+    def __init__(self,game,size=(550,700)):
         self.screen = None
-        self.monde = monde
+        self.game = game
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/space.jpg")
@@ -51,11 +50,10 @@ class PygameGui():
     def start(self):
         self.screen = pygame.display.set_mode(self.size)
         self.screen.blit(self.fond,(0,0))
-        vaisceau = pygame.image.load("core/rsc/img/best-ship.png")
-        self.screen.blit(vaisceau,(225,500))
-        pygame.display.flip()
         pygame.display.set_caption("Space Invader")
+        pygame.display.flip()
         self.__mainLoop()
+        Game.start()
 
     # Méthode de la boucle principale
     def __mainLoop(self):
@@ -66,31 +64,29 @@ class PygameGui():
         #Tant que la boucle principale est en cours d'excution
         while self.running:
 
-            # Calculation du delaTime utile pour les transitions
-            self.dt = clock.tick()/1000
-            exec_ += self.dt
-
-            if player.Pv==3:
+            if self.game.joueur.Pv==3:
                 point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
 
-            elif player.Pv==2:
+            elif game.joueur.Pv==2:
                 point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
 
-            elif player.Pv==1:
+            elif game.joueur.Pv==1:
                 point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
 
-            elif player.Pv==0:
+            elif game.joueur.get_Pv==0:
                 point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
 
-
+            # Calculation du delaTime utile pour les transitions
+            self.dt = clock.tick()/1000
+            exec_ += self.dt
 
 
             pos = pygame.mouse.get_pos()
