@@ -10,4 +10,4 @@ class Player():
         self.Pv=pv
 
 
-player=Player((100,300),0)
+player=Player((100,300),3)

@@ -51,6 +51,8 @@ class PygameGui():
     def start(self):
         self.screen = pygame.display.set_mode(self.size)
         self.screen.blit(self.fond,(0,0))
+        vaisceau = pygame.image.load("core/rsc/img/best-ship.png")
+        self.screen.blit(vaisceau,(225,500))
         pygame.display.flip()
         pygame.display.set_caption("Space Invader")
         self.__mainLoop()
@@ -68,7 +70,6 @@ class PygameGui():
             self.dt = clock.tick()/1000
             exec_ += self.dt
 
-
             if player.Pv==3:
                 point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
                 self.screen.blit(point_de_vie,(0,0))
@@ -83,6 +84,7 @@ class PygameGui():
                 point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
                 self.screen.blit(point_de_vie,(0,0))
                 pygame.display.flip()
+
             elif player.Pv==0:
                 point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
                 self.screen.blit(point_de_vie,(0,0))
