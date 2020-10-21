@@ -1,21 +1,19 @@
 ﻿import logging
 from core.classes.player import*
+from core.configparser import get_config
 
 class Game():
 
-    def __init__(self,dimentions=(20,20)):
+    def __init__(self):
         self.set_up_logging()
         logging.debug("init game...")
-        self.dimentions = dimentions
+        logging.debug("loading config...")
+        self.config = get_config()
         self.player = Player((225,500),3)
         self.enemys = [Enemy((30,30)),Enemy((60,30)),Enemy((90,30))]
-        self.start()
-
 
     def start(self):
         logging.info("game starting")
-
-
 
 
     def set_up_logging(self):
