@@ -67,13 +67,13 @@ class PygameGui():
 
         #Tant que la boucle principale est en cours d'excution
         while self.running:
-            
+
             # affichage du fond
             self.screen.blit(self.fond,(0,0))
-            
+
             # affichage du joueur
             self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
-            
+
             # affichage de la vie / écran de game-over
             if self.game.player.pv==3: point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
             elif self.game.player.pv==2: point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
@@ -96,18 +96,18 @@ class PygameGui():
                 if event.type == pygame.QUIT:self.quit();break
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     # Si clic gauche, on execute la raction liée à clic gauche
-                    if event.button == 1:self.left_click(pos)
+                    if event.button == 1:self.left(pos)
                     # Si clic droit, on execute la raction liée à clic droit
-                    if event.button == 3:self.right_click(pos) #
+                    if event.button == 3:self.right(pos) #
 
 
     # Réaction après l'event de clic droit
-    def left_click(self,pos):
+    def left(self,pos):
         logging.debug("Left click event called")
-        pass
+        self.game.player.pos[0]+=100*self.dt
 
     # Réaction après l'event de clic droit
-    def right_click(self,pos):
+    def right(self,pos):
         logging.debug("Right click event called")
         pass
 

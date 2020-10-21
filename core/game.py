@@ -9,8 +9,8 @@ class Game():
         logging.debug("init game...")
         logging.debug("loading config...")
         self.config = get_config()
-        self.player = Player((252,500))
-        self.enemys = [Enemy((30,30)),Enemy((60,30)),Enemy((90,30))]
+        self.player = Player([252,500])
+        self.enemys = [Enemy([30,30]),Enemy([60,30]),Enemy([90,30])]
 
     def start(self):
         logging.info("game starting")
