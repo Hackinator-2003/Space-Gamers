@@ -33,7 +33,7 @@ class PygameGui():
         self.conf = self.game.config
         self.running = False
         self.size = size
-        self.fond = pygame.image.load("core/rsc/img/space.jpg")
+        self.fond = pygame.image.load("core/rsc/img/background.jpg")
         logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
