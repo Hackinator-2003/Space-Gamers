@@ -96,20 +96,11 @@ class PygameGui():
                 if event.type == pygame.QUIT:self.quit();break
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     # Si clic gauche, on execute la raction liée à clic gauche
-                    if event.button == 1:self.left(pos)
+                    if event.button == 1:self.game.player.left(pos,self.dt)
                     # Si clic droit, on execute la raction liée à clic droit
-                    if event.button == 3:self.right(pos) #
+                    if event.button == 3:self.game.player.right(pos,self.dt) #
 
 
-    # Réaction après l'event de clic droit
-    def left(self,pos):
-        logging.debug("Left click event called")
-        self.game.player.pos[0]-=100*self.dt
-
-    # Réaction après l'event de clic droit
-    def right(self,pos):
-        logging.debug("Right click event called")
-        self.game.player.pos[0]+=100*self.dt
 
     # Fermeture de la fenêtre
     def quit(self):

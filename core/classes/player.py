@@ -15,6 +15,14 @@ class Player():
 
 
 
+    # Réaction après l'event de clic droit
+    def left(self,pos,dt):
+        logging.debug("Left click event called")
+        self.pos[0]-=100*dt
 
+    # Réaction après l'event de clic droit
+    def right(self,pos,dt):
+        logging.debug("Right click event called")
+        self.pos[0]+=100*dt
 
 
