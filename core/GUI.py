@@ -30,10 +30,12 @@ class PygameGui():
     def __init__(self,game,size=(550,700)):
         self.screen = None
         self.game = game
-        self.conf = self.game.config
+        self.gui_config = self.game.config["GUI"]
+        self.input_config = self.game.config["INPUT"]
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
+        self.touches = {key:values for key,value in pygame.__dict__ if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
@@ -94,11 +96,8 @@ class PygameGui():
 
                 # Création de l'évènement quitter
                 if event.type == pygame.QUIT:self.quit();break
-                elif event.type == pygame.MOUSEBUTTONDOWN:
-                    # Si clic gauche, on execute la raction liée à clic gauche
-                    if event.button == 1:self.left(pos)
-                    # Si clic droit, on execute la raction liée à clic droit
-                    if event.button == 3:self.right(pos) #
+                pressed = pygame.key.get_pressed()
+                if pressed[self.touches[self.input_config["left"]]]: self.player.left(self.dt)
 
 
     # Réaction après l'event de clic droit
