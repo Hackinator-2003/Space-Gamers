@@ -35,7 +35,7 @@ class PygameGui():
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
-        self.touches = {key:values for key,value in pygame.__dict__ if key[:2] == "K_" or key[:2] == "KM"}
+        self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
@@ -96,8 +96,9 @@ class PygameGui():
                 # Création de l'évènement quitter
                 if event.type == pygame.QUIT:self.quit();break
 
-                pressed = pygame.key.get_pressed()
-                if pressed[self.touches[self.input_config["left"]]]: self.player.left(self.dt)
+            pressed = pygame.key.get_pressed()
+            if pressed[self.touches[self.input_config["left"]]]: self.game.player.left(self.dt)
+            if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
 
 
     # Fermeture de la fenêtre

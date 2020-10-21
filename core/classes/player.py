@@ -1,10 +1,11 @@
 ﻿import pygame
 from core.GUI import*
 import logging
-
+import random
 class Player():
 
     max_pv = 3
+    speed = 200
     nom="player"
     vaisceau = pygame.image.load("core/rsc/img/spaceship.png")
 
@@ -16,13 +17,13 @@ class Player():
 
 
     # Réaction après l'event de clic droit
-    def left(self,pos,dt):
-        logging.debug("Left click event called")
-        self.pos[0]-=100*dt
+    def left(self,dt):
+        logging.debug("Left click event called"+str(random.randint(122222,122000000000)))
+        self.pos[0]-=self.speed*dt
 
     # Réaction après l'event de clic droit
-    def right(self,pos,dt):
+    def right(self,dt):
         logging.debug("Right click event called")
-        self.pos[0]+=100*dt
+        self.pos[0]+=self.speed*dt
 
 
