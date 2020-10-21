@@ -25,7 +25,7 @@ class Game():
         rootLogger = logging.getLogger()
         rootLogger.handlers = []
 
-        fileHandler = logging.FileHandler("core/log")
+        fileHandler = logging.FileHandler("core/log.log")
         fileHandler.setFormatter(fileFormatter)
         rootLogger.addHandler(fileHandler)
 
