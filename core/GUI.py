@@ -49,7 +49,6 @@ class PygameGui():
     # Méthode du lancement de la boucle principale
     def start(self):
         self.screen = pygame.display.set_mode(self.size)
-        self.screen.blit(self.fond,(0,0))
         pygame.display.set_caption("Space Invader")
         pygame.display.flip()
         self.game.start()
@@ -63,16 +62,21 @@ class PygameGui():
 
         #Tant que la boucle principale est en cours d'excution
         while self.running:
-
+            
+            # affichage du fond
+            self.screen.blit(self.fond,(0,0))
+            
+            # affichage du joueur
+            self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
+            
+            # affichage de la vie / écran de game-over
             if self.game.player.pv==3: point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
             elif self.game.player.pv==2: point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
             elif self.game.player.pv==1: point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
-            elif self.game.player.get_pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
+            elif self.game.player.pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
 
             self.screen.blit(point_de_vie,(0,0))
-
-            
-            self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
+            # flip
             pygame.display.flip()
 
             # Calculation du delaTime utile pour les transitions

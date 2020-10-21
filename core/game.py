@@ -7,7 +7,7 @@ class Game():
         self.set_up_logging()
         logging.debug("Instance done !")
         self.dimentions = dimentions
-        self.player = Player((225,500))
+        self.player = Player((225,500),3)
         self.enemys = [Enemy((30,30)),Enemy((60,30)),Enemy((90,30))]
         self.start()
 
