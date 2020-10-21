@@ -30,6 +30,7 @@ class PygameGui():
     def __init__(self,game,size=(550,700)):
         self.screen = None
         self.game = game
+        self.conf = self.game.config
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/space.jpg")
