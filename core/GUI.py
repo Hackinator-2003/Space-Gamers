@@ -104,12 +104,12 @@ class PygameGui():
     # Réaction après l'event de clic droit
     def left(self,pos):
         logging.debug("Left click event called")
-        self.game.player.pos[0]+=100*self.dt
+        self.game.player.pos[0]-=100*self.dt
 
     # Réaction après l'event de clic droit
     def right(self,pos):
         logging.debug("Right click event called")
-        pass
+        self.game.player.pos[0]+=100*self.dt
 
     # Fermeture de la fenêtre
     def quit(self):
