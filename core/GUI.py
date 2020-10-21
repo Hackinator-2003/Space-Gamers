@@ -52,8 +52,8 @@ class PygameGui():
         self.screen.blit(self.fond,(0,0))
         pygame.display.set_caption("Space Invader")
         pygame.display.flip()
+        self.game.start()
         self.__mainLoop()
-        Game.start()
 
     # Méthode de la boucle principale
     def __mainLoop(self):
@@ -64,30 +64,20 @@ class PygameGui():
         #Tant que la boucle principale est en cours d'excution
         while self.running:
 
-            if self.game.joueur.Pv==3:
-                point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
-                self.screen.blit(point_de_vie,(0,0))
-                pygame.display.flip()
+            if self.game.player.pv==3: point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
+            elif self.game.player.pv==2: point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
+            elif self.game.player.pv==1: point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
+            elif self.game.player.get_pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
 
-            elif game.joueur.Pv==2:
-                point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
-                self.screen.blit(point_de_vie,(0,0))
-                pygame.display.flip()
+            self.screen.blit(point_de_vie,(0,0))
 
-            elif game.joueur.Pv==1:
-                point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
-                self.screen.blit(point_de_vie,(0,0))
-                pygame.display.flip()
-
-            elif game.joueur.get_Pv==0:
-                point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
-                self.screen.blit(point_de_vie,(0,0))
-                pygame.display.flip()
+            
+            self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
+            pygame.display.flip()
 
             # Calculation du delaTime utile pour les transitions
             self.dt = clock.tick()/1000
             exec_ += self.dt
-
 
             pos = pygame.mouse.get_pos()
 
@@ -96,10 +86,8 @@ class PygameGui():
                 # Création de l'évènement quitter
                 if event.type == pygame.QUIT:self.quit();break
                 elif event.type == pygame.MOUSEBUTTONDOWN:
-
                     # Si clic gauche, on execute la raction liée à clic gauche
                     if event.button == 1:self.left_click(pos)
-
                     # Si clic droit, on execute la raction liée à clic droit
                     if event.button == 3:self.right_click(pos) #
 

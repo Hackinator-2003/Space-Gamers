@@ -1,0 +1,14 @@
+2020-10-21 10:11:23,627 <game.py:8 -   __init__()> [DEBUG] Instance done !
+2020-10-21 10:12:08,314 <game.py:8 -   __init__()> [DEBUG] Instance done !
+2020-10-21 10:12:55,182 <game.py:8 -   __init__()> [DEBUG] Instance done !
+2020-10-21 10:12:55,186 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:12:55,800 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:14:55,535 <game.py:8 -   __init__()> [DEBUG] Instance done !
+2020-10-21 10:14:55,538 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:14:56,150 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:15:27,884 <game.py:8 -   __init__()> [DEBUG] Instance done !
+2020-10-21 10:15:27,889 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:15:28,513 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:15:49,444 <game.py:8 -   __init__()> [DEBUG] Instance done !
+2020-10-21 10:15:49,446 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:15:50,077 <game.py:16 -      start()> [INFO ] game starting
