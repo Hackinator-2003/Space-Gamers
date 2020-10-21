@@ -6,7 +6,7 @@ class Player():
 
     max_pv = 3
     nom="player"
-    vaisceau = pygame.image.load("core/rsc/img/best-ship.png")
+    vaisceau = pygame.image.load("core/rsc/img/spaceship.png")
 
     def __init__(self,position,pv=3):
         self.pos=position
