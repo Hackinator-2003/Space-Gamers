@@ -27,3 +27,54 @@
 2020-10-21 10:19:25,720 <game.py:8 -   __init__()> [DEBUG] Instance done !
 2020-10-21 10:19:25,723 <game.py:16 -      start()> [INFO ] game starting
 2020-10-21 10:19:26,344 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:26:00,343 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:26:00,345 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:26:16,946 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:26:16,948 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:26:17,021 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:26:17,027 <GUI.py:36 -   __init__()> [DEBUG] init Pygame...
+2020-10-21 10:26:17,598 <GUI.py:52 -      start()> [INFO ] Starting GUI mainloop
+2020-10-21 10:26:17,617 <GUI.py:56 -      start()> [DEBUG] Calling game.start()
+2020-10-21 10:26:17,618 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:26:17,619 <GUI.py:62 - __mainLoop()> [DEBUG] GUI mainloop called !
+2020-10-21 10:26:58,656 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:26:58,657 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:26:58,728 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:26:58,740 <GUI.py:36 -   __init__()> [DEBUG] init Pygame...
+2020-10-21 10:26:59,319 <GUI.py:52 -      start()> [INFO ] Starting GUI mainloop
+2020-10-21 10:26:59,343 <GUI.py:56 -      start()> [DEBUG] Calling game.start()
+2020-10-21 10:26:59,343 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:26:59,344 <GUI.py:62 - __mainLoop()> [DEBUG] GUI mainloop called !
+2020-10-21 10:27:23,409 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:27:23,411 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:27:44,530 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:27:44,531 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:27:44,610 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:27:44,615 <GUI.py:36 -   __init__()> [DEBUG] init Pygame...
+2020-10-21 10:27:45,181 <GUI.py:52 -      start()> [INFO ] Starting GUI mainloop
+2020-10-21 10:27:45,203 <GUI.py:56 -      start()> [DEBUG] Calling game.start()
+2020-10-21 10:27:45,203 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:27:45,204 <GUI.py:62 - __mainLoop()> [DEBUG] GUI mainloop called !
+2020-10-21 10:28:19,207 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:28:19,209 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:28:19,232 <enemy.py:13 -   __init__()> [DEBUG] init enemys at(30, 30), pv=4
+2020-10-21 10:28:19,233 <enemy.py:13 -   __init__()> [DEBUG] init enemys at(60, 30), pv=6
+2020-10-21 10:28:19,233 <enemy.py:13 -   __init__()> [DEBUG] init enemys at(90, 30), pv=3
+2020-10-21 10:28:19,234 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:28:19,239 <GUI.py:36 -   __init__()> [DEBUG] init Pygame...
+2020-10-21 10:28:19,821 <GUI.py:52 -      start()> [INFO ] Starting GUI mainloop
+2020-10-21 10:28:19,846 <GUI.py:56 -      start()> [DEBUG] Calling game.start()
+2020-10-21 10:28:19,846 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:28:19,847 <GUI.py:62 - __mainLoop()> [DEBUG] GUI mainloop called !
+2020-10-21 10:28:37,068 <game.py:35 - set_up_logging()> [DEBUG] Logging setup !
+2020-10-21 10:28:37,070 <game.py:8 -   __init__()> [DEBUG] init game...
+2020-10-21 10:28:37,071 <player.py:14 -   __init__()> [DEBUG] init player at(225, 500), pv=3
+2020-10-21 10:28:37,072 <enemy.py:13 -   __init__()> [DEBUG] init enemys at(30, 30), pv=5
+2020-10-21 10:28:37,073 <enemy.py:13 -   __init__()> [DEBUG] init enemys at(60, 30), pv=5
+2020-10-21 10:28:37,073 <enemy.py:13 -   __init__()> [DEBUG] init enemys at(90, 30), pv=1
+2020-10-21 10:28:37,073 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:28:37,078 <GUI.py:36 -   __init__()> [DEBUG] init Pygame...
+2020-10-21 10:28:37,652 <GUI.py:52 -      start()> [INFO ] Starting GUI mainloop
+2020-10-21 10:28:37,673 <GUI.py:56 -      start()> [DEBUG] Calling game.start()
+2020-10-21 10:28:37,674 <game.py:16 -      start()> [INFO ] game starting
+2020-10-21 10:28:37,674 <GUI.py:62 - __mainLoop()> [DEBUG] GUI mainloop called !

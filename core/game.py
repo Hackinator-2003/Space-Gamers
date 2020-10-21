@@ -5,7 +5,7 @@ class Game():
 
     def __init__(self,dimentions=(20,20)):
         self.set_up_logging()
-        logging.debug("Instance done !")
+        logging.debug("init game...")
         self.dimentions = dimentions
         self.player = Player((225,500),3)
         self.enemys = [Enemy((30,30)),Enemy((60,30)),Enemy((90,30))]
@@ -32,6 +32,7 @@ class Game():
         consoleHandler = logging.StreamHandler()
         consoleHandler.setFormatter(outFormatter)
         rootLogger.addHandler(consoleHandler)
+        logging.debug("Logging setup !")
 
 
 

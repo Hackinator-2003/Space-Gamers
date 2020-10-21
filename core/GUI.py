@@ -1,6 +1,6 @@
 ﻿
 ################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
-
+import logging
 import pygame
 from core.classes.enemy import Enemy
 from core.classes.Boss import Boss
@@ -33,6 +33,7 @@ class PygameGui():
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/space.jpg")
+        logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
 
@@ -48,14 +49,17 @@ class PygameGui():
 
     # Méthode du lancement de la boucle principale
     def start(self):
+        logging.info("Starting GUI mainloop")
         self.screen = pygame.display.set_mode(self.size)
         pygame.display.set_caption("Space Invader")
         pygame.display.flip()
+        logging.debug("Calling game.start()")
         self.game.start()
         self.__mainLoop()
 
     # Méthode de la boucle principale
     def __mainLoop(self):
+        logging.debug("GUI mainloop called !")
         self.running = True
         clock = pygame.time.Clock()
         exec_= 0
@@ -98,14 +102,17 @@ class PygameGui():
 
     # Réaction après l'event de clic droit
     def left_click(self,pos):
+        logging.debug("Left click event called")
         pass
 
     # Réaction après l'event de clic droit
     def right_click(self,pos):
+        logging.debug("Right click event called")
         pass
 
     # Fermeture de la fenêtre
     def quit(self):
+        logging.warn("Gui.quit() called !")
         pygame.quit()
         self.running = False
         exit()

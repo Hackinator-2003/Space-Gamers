@@ -1,5 +1,6 @@
 ﻿import pygame
 from core.GUI import*
+import logging
 
 class Player():
 
@@ -10,6 +11,7 @@ class Player():
     def __init__(self,position,pv=3):
         self.pos=position
         self.pv=pv
+        logging.debug("init player at"+str(position)+", pv="+str(pv))
 
 
 
