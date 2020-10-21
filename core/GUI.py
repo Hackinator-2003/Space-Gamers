@@ -93,12 +93,13 @@ class PygameGui():
             pos = pygame.mouse.get_pos()
 
             for event in pygame.event.get():
-                # Création de l'évènement quitter
                 if event.type == pygame.QUIT:self.quit();break
 
             pressed = pygame.key.get_pressed()
             if pressed[self.touches[self.input_config["left"]]]: self.game.player.left(self.dt)
             if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
+            if pressed[self.touches[self.input_config["up"]]]: self.game.player.up(self.dt)
+            if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
 
 
     # Fermeture de la fenêtre
