@@ -18,13 +18,15 @@ class Player():
 
     # Réaction après l'event de clic droit
     def left(self,dt):
-        logging.debug("Left click event called"+str(random.randint(122222,122000000000)))
+        logging.debug("Left click event called")
         self.pos[0]-=self.speed*dt
+        if self.pos[0]<0: self.pos[0]=0
 
     # Réaction après l'event de clic droit
     def right(self,dt):
         logging.debug("Right click event called")
         self.pos[0]+=self.speed*dt
+        if self.pos[0]>550-60: self.pos[0]=550-60
 
     # Réaction après l'event de clic droit
     def up(self,pos,dt):
