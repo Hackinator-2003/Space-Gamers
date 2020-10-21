@@ -7,13 +7,12 @@ TYAPGE_CONF = {
 }
 
 
-
 def get_config(option="conf.ini",default="core/default.ini"):
     logging.debug("loading configuration="+str(option)+"and default="+str(default))
 
     assert os.path.isfile(default)
     if not os.path.isfile(option):copyfile(default, option)
-    
+
     # charger les fichiers de configuration sous la forme d'un dict
     default_conf = get_config_dict(default)
     option_conf = get_config_dict(option)
@@ -23,7 +22,7 @@ def get_config(option="conf.ini",default="core/default.ini"):
             if key in option_conf[section_name].keys():default_conf[section_name][key] = option_conf[section_name][key]
 
     logging.debug("MERGED CONFIG "+str(default_conf))
-    
+
     return default_conf
 
 
@@ -41,7 +40,7 @@ def get_config_dict(filePath):
         if "=" in line:
             value,key = line.split("=")
             returning[section][value.strip()] = key.strip()
-    
+
     logging.debug("config for"+filePath+": "+str(returning))
     return returning
 

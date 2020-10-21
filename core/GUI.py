@@ -66,12 +66,21 @@ class PygameGui():
         self.running = True
         clock = pygame.time.Clock()
         exec_= 0
+        time = 0
 
         #Tant que la boucle principale est en cours d'excution
         while self.running:
 
+            # Calculation du delaTime utile pour les transitions
+            self.dt = clock.tick()/1000
+            exec_ += self.dt
+
             # affichage du fond
             self.screen.blit(self.fond,(0,0))
+
+            police = pygame.font.Font(None,70)
+            texte = police.render(str(round(exec_,2)),True,pygame.Color("#FFFFFF"))
+            self.screen.blit(texte,(225,0))
 
             # affichage du joueur
             self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
@@ -86,9 +95,8 @@ class PygameGui():
             # flip
             pygame.display.flip()
 
-            # Calculation du delaTime utile pour les transitions
-            self.dt = clock.tick()/1000
-            exec_ += self.dt
+
+
 
             pos = pygame.mouse.get_pos()
 
