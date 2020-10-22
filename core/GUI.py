@@ -78,9 +78,9 @@ class PygameGui():
             # affichage du fond
             self.screen.blit(self.fond,(0,0))
 
-            police = pygame.font.Font(None,70)
+            police = pygame.font.Font(None,60)
             texte = police.render(str(round(exec_,2)),True,pygame.Color("#FFFFFF"))
-            self.screen.blit(texte,(225,0))
+            self.screen.blit(texte,(225,10))
 
             # affichage du joueur
             self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
