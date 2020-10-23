@@ -1,12 +1,10 @@
-﻿
-################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
+﻿################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
 import logging
 import pygame
-from core.classes.enemy import Enemy
-from core.classes.Boss import Boss
-
+from core import GUI as PyGameGUI
 #######################################################################################################################################
 
+############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 
 #Création de la classe PygameGui
@@ -27,14 +25,13 @@ class PygameGui():
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
 
     #Initialisation de la classe PygameGui et de ses attributs
-    def __init__(self,game,size=(550,700)):
+    def __init__(self,size=(550,700)):
         self.screen = None
-        self.game = game
-        self.gui_config = self.game.config["GUI"]
-        self.input_config = self.game.config["INPUT"]
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
+        self.logo=pygame.image.load("core/rsc/img/logo.png")
+        self.play_button=pygame.image.load("core/rsc/img/play-button.png")
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
@@ -56,8 +53,7 @@ class PygameGui():
         self.screen = pygame.display.set_mode(self.size)
         pygame.display.set_caption("Space Invader")
         pygame.display.flip()
-        logging.debug("Calling game.start()")
-        self.game.start()
+        logging.debug("Calling ggamemenu.start()")
         self.__mainLoop()
 
     # Méthode de la boucle principale
@@ -77,28 +73,12 @@ class PygameGui():
 
             # affichage du fond
             self.screen.blit(self.fond,(0,0))
-
-
-            police = pygame.font.Font(None,55)
-            texte = police.render(str(round(exec_)),True,pygame.Color("#FFFFFF"))
-            texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
-            self.screen.blit(texte,(texte_rect[0],10))
-
-
-            # affichage du joueur
-            self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
-
-            # affichage de la vie / écran de game-over
-            if self.game.player.pv==3: point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
-            elif self.game.player.pv==2: point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
-            elif self.game.player.pv==1: point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
-            elif self.game.player.pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
-
-            self.screen.blit(point_de_vie,(0,0))
+            logo_rect = self.logo.get_rect(center=(self.size[0]/2,0))
+            self.screen.blit(self.logo,(logo_rect[0],0))
             # flip
             pygame.display.flip()
 
-
+            # affichage du fond
 
 
             pos = pygame.mouse.get_pos()
@@ -106,16 +86,9 @@ class PygameGui():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:self.quit();break
 
-            pressed = pygame.key.get_pressed()
-            if pressed[self.touches[self.input_config["left"]]]: self.game.player.left(self.dt)
-            if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
-            if pressed[self.touches[self.input_config["up"]]]: self.game.player.up(self.dt)
-            if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
-
 
     # Fermeture de la fenêtre
     def quit(self):
-        logging.warn("Gui.quit() called !")
         pygame.quit()
         self.running = False
         exit()
