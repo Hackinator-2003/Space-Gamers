@@ -99,8 +99,7 @@ class PygameGui():
             elif self.game.player.pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
 
             self.screen.blit(point_de_vie,(0,0))
-            # flip
-            pygame.display.flip()
+
 
 
 
@@ -118,7 +117,6 @@ class PygameGui():
             if pressed[self.touches[self.input_config["fire"]]]:
                 self.game.bullet.append(Bullet([self.game.player.pos[0],self.game.player.pos[1]-30]))
                 for bullet in self.game.bullet:
-                    self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
                     bullet.pos[1]-=500*self.dt
                     if bullet.pos[1]<0:
                         for i,x in enumerate(self.game.bullet):
@@ -127,7 +125,11 @@ class PygameGui():
                                 break
 
 
-                pygame.display.flip()
+
+            for bullet in self.game.bullet:
+                    self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
+                    # flip
+            pygame.display.flip()
 
 
 
