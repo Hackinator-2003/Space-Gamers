@@ -8,7 +8,7 @@ class Bullet():
 
     def __init__(self,position):
         self.pos=position
-        self.fire = pygame.image.load("core/rsc/img/green-enemy.png")
+
 
     def tire(self,dt):
         self.pos[1]-=200*dt
