@@ -27,6 +27,7 @@ class PygameGui():
 
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
     speed = 200
+    speed_bullet = 500
 
     #Initialisation de la classe PygameGui et de ses attributs
     def __init__(self,game,size=(550,700)):
@@ -99,8 +100,7 @@ class PygameGui():
             elif self.game.player.pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
 
             self.screen.blit(point_de_vie,(0,0))
-            # flip
-            pygame.display.flip()
+
 
 
 
@@ -117,10 +117,22 @@ class PygameGui():
             if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
             if pressed[self.touches[self.input_config["fire"]]]:
                 self.game.bullet.append(Bullet([self.game.player.pos[0],self.game.player.pos[1]-30]))
+
+            if self.game.bullet != None:
                 for bullet in self.game.bullet:
+                    bullet.pos[1]-=self.speed_bullet*self.dt
+                    if bullet.pos[1]<0:
+                        for i,x in enumerate(self.game.bullet):
+                            if x == bullet:
+                                del self.game.bullet[i]
+
+
+            for bullet in self.game.bullet:
                     self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
-                    bullet.tire(self.dt)
-                    pygame.display.flip()
+
+
+            # flip
+            pygame.display.flip()
 
 
 

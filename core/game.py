@@ -12,7 +12,7 @@ class Game():
         self.config = get_config()
         self.player = Player([252,500])
         self.enemys = [Enemy([30,30]),Enemy([60,30]),Enemy([90,30])]
-        self.bullet = [Bullet([30,30])]
+        self.bullet = []
 
 
 
@@ -35,6 +35,10 @@ class Game():
         consoleHandler.setFormatter(outFormatter)
         rootLogger.addHandler(consoleHandler)
         logging.debug("Logging setup !")
+
+
+
+
 
 
 
