@@ -1,5 +1,6 @@
 ﻿import logging
 from core.classes.player import*
+from core.classes.bullet import*
 from core.configparser import get_config
 
 class Game():
@@ -11,6 +12,9 @@ class Game():
         self.config = get_config()
         self.player = Player([252,500])
         self.enemys = [Enemy([30,30]),Enemy([60,30]),Enemy([90,30])]
+        self.bullet = [Bullet([30,30])]
+
+
 
     def start(self):
         logging.info("game starting")
