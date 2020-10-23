@@ -32,6 +32,10 @@ class PygameGui():
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
         self.logo=pygame.image.load("core/rsc/img/logo.png")
         self.play_button=pygame.image.load("core/rsc/img/play-button.png")
+        self.setting_button=pygame.image.load("core/rsc/img/setting-button.png")
+        self.oldsi=pygame.image.load("core/rsc/img/old-si.png")
+        self.play_button_over=pygame.image.load("core/rsc/img/play-button-over.png")
+        self.setting_button_over=pygame.image.load("core/rsc/img/setting-button-over.png")
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
@@ -73,18 +77,42 @@ class PygameGui():
 
             # affichage du fond
             self.screen.blit(self.fond,(0,0))
+
             logo_rect = self.logo.get_rect(center=(self.size[0]/2,0))
-            self.screen.blit(self.logo,(logo_rect[0],0))
+            logo_coo=(logo_rect[0],0)
+            logo_size=(self.logo.get_width(),self.logo.get_height())
+            self.screen.blit(self.logo,logo_coo)
+
+            play_rect = self.play_button.get_rect(center=(self.size[0]/2,0))
+            play_coo=(play_rect[0],logo_rect[3])
+            play_size=(self.play_button.get_width(),self.play_button.get_height())
+            self.screen.blit(self.play_button,play_coo)
+
+            setting_rect = self.setting_button.get_rect(center=(self.size[0]/2,0))
+            setting_coo=(setting_rect[0],logo_rect[3]+20+play_rect[3])
+            setting_size=(self.setting_button.get_width(),self.setting_button.get_height())
+            self.screen.blit(self.setting_button,setting_coo)
+
+            oldsi_rect = self.oldsi.get_rect(center=(self.size[0]/2,0))
+            oldsi_coo=(oldsi_rect[0],logo_rect[3]+20+play_rect[3]+20+setting_rect[3])
+            oldsi_size=((self.oldsi.get_width(),self.oldsi.get_height()))
+            self.screen.blit(self.oldsi,oldsi_coo)
             # flip
             pygame.display.flip()
 
             # affichage du fond
 
-
-            pos = pygame.mouse.get_pos()
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:self.quit();break
+                if event.type == pygame.MOUSEMOTION:
+                     mouse_x, mouse_y = pygame.mouse.get_pos()
+                     if(((play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1]))
+                     or
+                     (setting_coo[0] < mouse_x < setting_coo[0] + setting_size[0]) and (setting_coo[1] < mouse_y < setting_coo[1] + setting_size[1])):
+                        pygame.mouse.set_cursor(*pygame.cursors.tri_left)
+                     else:
+                        pygame.mouse.set_cursor(*pygame.cursors.arrow)
+
 
 
     # Fermeture de la fenêtre
