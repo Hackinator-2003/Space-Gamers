@@ -3,6 +3,7 @@
 import logging
 import pygame
 from core.classes.enemy import Enemy
+from core.classes.bullet import Bullet
 from core.classes.Boss import Boss
 
 #######################################################################################################################################
@@ -25,6 +26,7 @@ class PygameGui():
 
 
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
+    speed = 200
 
     #Initialisation de la classe PygameGui et de ses attributs
     def __init__(self,game,size=(550,700)):
@@ -87,6 +89,8 @@ class PygameGui():
 
             # affichage du joueur
             self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
+            fire = pygame.image.load("core/rsc/img/green-enemy.png")
+
 
             # affichage de la vie / écran de game-over
             if self.game.player.pv==3: point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
@@ -111,6 +115,13 @@ class PygameGui():
             if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
             if pressed[self.touches[self.input_config["up"]]]: self.game.player.up(self.dt)
             if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
+            if pressed[self.touches[self.input_config["fire"]]]:
+                self.game.bullet.append(Bullet([self.game.player.pos[0],self.game.player.pos[1]-30]))
+                for bullet in self.game.bullet:
+                    self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
+                    bullet.tire(self.dt)
+                    pygame.display.flip()
+
 
 
     # Fermeture de la fenêtre
