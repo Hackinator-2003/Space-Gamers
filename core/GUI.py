@@ -119,8 +119,15 @@ class PygameGui():
                 self.game.bullet.append(Bullet([self.game.player.pos[0],self.game.player.pos[1]-30]))
                 for bullet in self.game.bullet:
                     self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
-                    bullet.tire(self.dt)
-                    pygame.display.flip()
+                    bullet.pos[1]-=500*self.dt
+                    if bullet.pos[1]<0:
+                        for i,x in enumerate(self.game.bullet):
+                            if x == bullet:
+                                del self.game.bullet[i]
+                                break
+
+
+                pygame.display.flip()
 
 
 
