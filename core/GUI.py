@@ -117,6 +117,8 @@ class PygameGui():
             if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
             if pressed[self.touches[self.input_config["fire"]]]:
                 self.game.bullet.append(Bullet([self.game.player.pos[0],self.game.player.pos[1]-30]))
+
+            if self.game.bullet != None:
                 for bullet in self.game.bullet:
                     bullet.pos[1]-=self.speed_bullet*self.dt
                     if bullet.pos[1]<0:
