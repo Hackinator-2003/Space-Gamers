@@ -1,9 +1,8 @@
 ﻿from core.game import Game
-from core.GUI import PygameGui
+from core.screen.mainmenu import MainMenuPygameGui as pg
 
 if __name__ == "__main__":
-    game = Game()
-    Gui = PygameGui(game)
+    Gui = pg()
     Gui.start()
 
 

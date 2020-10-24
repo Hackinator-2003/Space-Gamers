@@ -1,6 +1,7 @@
 ﻿import logging
-from core.classes.player import*
-from core.classes.bullet import*
+from core.classes.player import Player
+from core.classes.enemy import Enemy
+from core.classes.bullet import Bullet
 from core.configparser import get_config
 
 class Game():
