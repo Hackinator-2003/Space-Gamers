@@ -90,7 +90,7 @@ class PygameGui():
 
             # affichage du joueur
             self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
-            fire = pygame.image.load("core/rsc/img/green-enemy.png")
+            fire = pygame.image.load("core/rsc/img/tire.jpg")
 
 
             # affichage de la vie / écran de game-over
@@ -115,12 +115,15 @@ class PygameGui():
             if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
             if pressed[self.touches[self.input_config["up"]]]: self.game.player.up(self.dt)
             if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
+
             if pressed[self.touches[self.input_config["fire"]]]:
                 self.game.bullet.append(Bullet([self.game.player.pos[0],self.game.player.pos[1]-30]))
 
             if self.game.bullet != None:
                 for bullet in self.game.bullet:
                     bullet.pos[1]-=self.speed_bullet*self.dt
+
+
                     if bullet.pos[1]<0:
                         for i,x in enumerate(self.game.bullet):
                             if x == bullet:
