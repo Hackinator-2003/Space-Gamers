@@ -1,5 +1,4 @@
-﻿from core.GUI import*
-import pygame
+﻿
 
 class Bullet():
 
