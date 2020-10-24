@@ -38,6 +38,7 @@ class PygameGui():
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
+        self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
@@ -117,7 +118,9 @@ class PygameGui():
             if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
 
             if pressed[self.touches[self.input_config["fire"]]]:
+                self.lasershot_sound.play()
                 self.game.bullet.append(Bullet([self.game.player.pos[0]+12,self.game.player.pos[1]-30]))
+
 
             if self.game.bullet != None:
                 for bullet in self.game.bullet:
