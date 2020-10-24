@@ -118,6 +118,9 @@ class MainMenuPygameGui():
                     # Set the x, y postions of the mouse click
                     x, y = event.pos
                     if ((play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1])):
+                        self.screen.blit(self.play_button_over,play_coo)
+                        pygame.display.flip()
+                        pygame.time.wait(6)
                         game = jeu()
                         Gui = PyGameGUI(game)
                         Gui.start()
