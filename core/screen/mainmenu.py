@@ -5,6 +5,8 @@ from core.game import Game as jeu
 from core.GUI import PygameGui as PyGameGUI
 #######################################################################################################################################
 
+pygame.init()
+
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 
@@ -37,6 +39,8 @@ class MainMenuPygameGui():
         self.oldsi=pygame.image.load("core/rsc/img/old-si.png")
         self.play_button_over=pygame.image.load("core/rsc/img/play-button-over.png")
         self.setting_button_over=pygame.image.load("core/rsc/img/setting-button-over.png")
+        pygame.mixer.music.load("core/rsc/sounds/music.mp3")
+        pygame.mixer.music.play(loops=-1)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
@@ -120,7 +124,7 @@ class MainMenuPygameGui():
                     if ((play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1])):
                         self.screen.blit(self.play_button_over,play_coo)
                         pygame.display.flip()
-                        pygame.time.wait(6)
+                        pygame.time.wait(20)
                         game = jeu()
                         Gui = PyGameGUI(game)
                         Gui.start()
