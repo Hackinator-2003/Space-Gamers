@@ -1,14 +1,15 @@
 ﻿################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
 import logging
 import pygame
-from core import GUI as PyGameGUI
+from core.game import Game as jeu
+from core.GUI import PygameGui as PyGameGUI
 #######################################################################################################################################
 
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 
 #Création de la classe PygameGui
-class PygameGui():
+class MainMenuPygameGui():
     """
     La classe PygameGui est la classe qui s'occupe de la gestion de l'interface graphique.
 
@@ -112,6 +113,15 @@ class PygameGui():
                         pygame.mouse.set_cursor(*pygame.cursors.tri_left)
                      else:
                         pygame.mouse.set_cursor(*pygame.cursors.arrow)
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # Set the x, y postions of the mouse click
+                    x, y = event.pos
+                    if ((play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1])):
+                        game = jeu()
+                        Gui = PyGameGUI(game)
+                        Gui.start()
+
 
 
 
