@@ -90,7 +90,7 @@ class PygameGui():
 
             # affichage du joueur
             self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
-            fire = pygame.image.load("core/rsc/img/tire.jpg")
+            fire = pygame.image.load("core/rsc/img/tire.png")
 
 
             # affichage de la vie / écran de game-over
