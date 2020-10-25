@@ -43,8 +43,3 @@ def get_config_dict(filePath):
 
     logging.debug("config for"+filePath+": "+str(returning))
     return returning
-
-
-
-
-
