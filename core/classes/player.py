@@ -24,7 +24,7 @@ class Player():
     def shoot(self,dt):
         if self.fire_timer >= self.fire_recovery:
             self.lasershot_sound.play()
-            self.game.bullets.append(Bullet([self.game.player.pos[0]+12,self.game.player.pos[1]-30],"up",100))
+            self.game.bullets.append(Bullet(self,[self.game.player.pos[0]+12,self.game.player.pos[1]-30],"up",100))
             self.fire_timer = 0.0
 
     # Réaction après l'event de clic droit
