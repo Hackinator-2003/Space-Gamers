@@ -38,7 +38,6 @@ class PygameGui():
         self.running = False
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
-        self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("init Pygame...")
         pygame.init()
@@ -103,9 +102,6 @@ class PygameGui():
             self.screen.blit(point_de_vie,(0,0))
 
 
-
-
-
             pos = pygame.mouse.get_pos()
 
             for event in pygame.event.get():
@@ -118,28 +114,32 @@ class PygameGui():
             if pressed[self.touches[self.input_config["down"]]]: self.game.player.down(self.dt)
 
             if pressed[self.touches[self.input_config["fire"]]]:
-                self.lasershot_sound.play()
-                self.game.bullet.append(Bullet([self.game.player.pos[0]+12,self.game.player.pos[1]-30]))
+                self.game.player.shoot(self.dt)
 
 
-            if self.game.bullet != None:
-                for bullet in self.game.bullet:
+            if self.game.bullets != None:
+                for bullet in self.game.bullets:
                     bullet.pos[1]-=self.speed_bullet*self.dt
 
 
                     if bullet.pos[1]<0:
-                        for i,x in enumerate(self.game.bullet):
+                        for i,x in enumerate(self.game.bullets):
                             if x == bullet:
-                                del self.game.bullet[i]
+                                del self.game.bullets[i]
 
 
-            for bullet in self.game.bullet:
-                    self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
+            for bullet in self.game.bullets:
+                bullet.update(self.dt)
+                self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
 
 
             # flip
             pygame.display.flip()
 
+            # call update on entitys
+            self.game.player.update(self.dt)
+            for enemy in self.game.enemys:
+                enemy.update(self.dt)
 
 
     # Fermeture de la fenêtre

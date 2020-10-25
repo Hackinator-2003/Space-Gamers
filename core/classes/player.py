@@ -5,14 +5,27 @@ import logging
 class Player():
 
     max_pv = 3
+    speed = 300
+    fire_recovery = 0.1
+    nom="player"
     vaisceau = pygame.image.load("core/rsc/img/spaceship.png")
 
-    def __init__(self,position,pv=3):
+    def __init__(self,game,position,pv=3):
         self.pos=position
         self.pv=pv
+        self.game = game
+        self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         logging.debug("init player at "+str(position)+", pv="+str(pv))
+        self.fire_timer = 0 
 
+    def update(self,dt):
+        self.fire_timer += dt
 
+    def shoot(self,dt):
+        if self.fire_timer >= self.fire_recovery:
+            self.lasershot_sound.play()
+            self.game.bullets.append(Bullet(self,[self.game.player.pos[0]+12,self.game.player.pos[1]-30],"up",100))
+            self.fire_timer = 0.0
 
     # Réaction après l'event de clic droit
     def left(self,dt):

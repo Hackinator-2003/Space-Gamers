@@ -11,9 +11,9 @@ class Game():
         logging.debug("init game...")
         logging.debug("loading config...")
         self.config = get_config()
-        self.player = Player([252,500])
-        self.enemys = [Enemy([30,30]),Enemy([60,30]),Enemy([90,30])]
-        self.bullet = []
+        self.player = Player(self,[252,500])
+        self.enemys = [Enemy(self,[30,30]),Enemy(self,[60,30]),Enemy(self,[90,30])]
+        self.bullets = []
 
 
 
