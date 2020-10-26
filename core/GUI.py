@@ -133,6 +133,17 @@ class PygameGui():
                 self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
 
 
+            if round(exec_) == 6 or round(exec_) == 120:
+                self.game.boss.append(Boss([200,100]))
+
+
+            for boss in self.game.boss:
+                bosse = pygame.image.load("core/rsc/img/blue-enemy.png")
+                self.screen.blit(bosse,(boss.pos[0],boss.pos[1]))
+                boss.mov(self.dt)
+
+
+
             # flip
             pygame.display.flip()
 

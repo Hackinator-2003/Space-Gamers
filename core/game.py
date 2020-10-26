@@ -2,6 +2,7 @@
 from core.classes.player import Player
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
+from core.classes.Boss import Boss
 from core.configparser import get_config
 
 class Game():
@@ -14,6 +15,7 @@ class Game():
         self.player = Player(self,[252,500])
         self.enemys = [Enemy(self,[30,30]),Enemy(self,[60,30]),Enemy(self,[90,30])]
         self.bullets = []
+        self.boss = []
 
 
 
