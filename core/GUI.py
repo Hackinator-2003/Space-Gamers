@@ -27,7 +27,7 @@ class PygameGui():
 
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
     speed = 200
-    speed_bullet = 500
+
 
     #Initialisation de la classe PygameGui et de ses attributs
     def __init__(self,game,size=(550,700)):
@@ -133,14 +133,16 @@ class PygameGui():
                 self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
 
 
-            if round(exec_) == 6 or round(exec_) == 120:
-                self.game.boss.append(Boss(self.game,[200,100]))
+            if round(exec_) == 6.00 or round(exec_) == 120.0:
+                if len(self.game.boss)<1:
+                    self.game.boss.append(Boss(self.game,[200,100]))
+
 
 
             for boss in self.game.boss:
                 bosse = pygame.image.load("core/rsc/img/blue-enemy.png")
                 self.screen.blit(bosse,(boss.pos[0],boss.pos[1]))
-                boss.mov(self.dt)
+                boss.move(self.dt,self.speed)
                 boss.shoot(self.dt)
 
 
