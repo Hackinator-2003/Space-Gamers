@@ -8,11 +8,10 @@ class Boss(Enemy):
 
     nom = "boss"
 
-    def __init__(self,game,position,pv=None):
+    def __init__(self,game,position,pv=100):
         self.pos=position
         self.game=game
-        if pv==None: self.pv=randint(self.start_pv[0],self.start_pv[1])
-        else: self.pv = pv
+        self.pv=pv
         self.speed=100
         self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         self.fire_timer = 0

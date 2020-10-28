@@ -42,6 +42,9 @@ class Enemy():
         if self.pos[0]<0: self.pos[0]=0
 
 
+    def degat(self):
+        self.pv -= 1
+
 
     def dead(self):
         if self.pv <= 0:
