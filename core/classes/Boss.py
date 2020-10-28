@@ -25,17 +25,10 @@ class Boss(Enemy):
 
 
 
-    def dead(self):
-        if self.pv <= 0:
-            for i,x in enumerate(self.game.boss):
-                if x == self:
-                    del self.game.boss[i]
-        else: pass
-
 
     def update(self,dt):
         self.fire_timer += dt
-        self.dead()
+
 
 
 

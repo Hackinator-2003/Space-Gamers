@@ -20,7 +20,7 @@ class Enemy():
 
     def update(self,dt):
         self.fire_timer += dt
-        self.dead()
+
 
 
 
@@ -42,14 +42,12 @@ class Enemy():
         if self.pos[0]<0: self.pos[0]=0
 
 
-    def degat(self):
+    def degat(self,liste):
         self.pv -= 1
 
-
-    def dead(self):
         if self.pv <= 0:
-            for i,x in enumerate(self.game.enemys):
+            for i,x in enumerate(liste):
                 if x == self:
-                    del self.game.enemys[i]
+                    del liste[i]
         else: pass
 
