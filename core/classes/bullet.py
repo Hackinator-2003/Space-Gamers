@@ -1,7 +1,6 @@
 ﻿
 class Bullet():
 
-    degat=(1,3) #on pourrait augmenter les degats avec le temps ?
 
     def __init__(self,handler,position,type_,speed=100):
         self.pos=position
