@@ -124,34 +124,25 @@ class PygameGui():
 
                     if bullet.pos[1]<0 or bullet.pos[1]>700-79:
 
-                        for i,x in enumerate(self.game.bullets):
-                            if x == bullet:
-                                del self.game.bullets[i]
+                        bullet.dead(self.game.bullets)
 
                     elif bullet.type_ == "down" and (((bullet.pos[0]>=self.game.player.pos[0] and bullet.pos[0]<=self.game.player.pos[0]+60)or(bullet.pos[0]+35>=self.game.player.pos[0] and bullet.pos[0]+35<=self.game.player.pos[0]+60)) and ((bullet.pos[1]>=self.game.player.pos[1] and bullet.pos[1]<=self.game.player.pos[1]+60)or(bullet.pos[1]+79>=self.game.player.pos[1] and bullet.pos[1]+79<=self.game.player.pos[1]+60))):
 
                         self.game.player.degat()
-                        for i,x in enumerate(self.game.bullets):
-                            if x == bullet:
-                                del self.game.bullets[i]
+                        bullet.dead(self.game.bullets)
 
                     else:
 
                         for enemy in self.game.enemys:
-
                             if  bullet.type_ == "up" and (((bullet.pos[0]>=enemy.pos[0] and bullet.pos[0]<=enemy.pos[0]+60)or(bullet.pos[0]+35>=enemy.pos[0] and bullet.pos[0]+35<=enemy.pos[0]+60)) and ((bullet.pos[1]>=enemy.pos[1] and bullet.pos[1]<=enemy.pos[1]+60)or(bullet.pos[1]+79>=enemy.pos[1] and bullet.pos[1]+79<=enemy.pos[1]+60))):
-
                                 enemy.degat()
-                                for i,x in enumerate(self.game.bullets):
-                                    if x == bullet:
-                                        del self.game.bullets[i]
+                                bullet.dead(self.game.bullets)
 
                         for boss in self.game.boss:
                             if bullet.type_ == "up" and (((bullet.pos[0]>=boss.pos[0] and bullet.pos[0]<=boss.pos[0]+212)or(bullet.pos[0]+35>=boss.pos[0] and bullet.pos[0]+35<=boss.pos[0]+212)) and ((bullet.pos[1]>=boss.pos[1] and bullet.pos[1]<=boss.pos[1]+189)or(bullet.pos[1]+79>=boss.pos[1] and bullet.pos[1]+79<=boss.pos[1]+189))):
                                 boss.degat()
-                                for i,x in enumerate(self.game.bullets):
-                                    if x == bullet:
-                                        del self.game.bullets[i]
+                                bullet.dead(self.game.bullets)
+
 
 
 
