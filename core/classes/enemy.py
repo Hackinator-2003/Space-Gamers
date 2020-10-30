@@ -1,12 +1,10 @@
 ﻿from random import randint
 import logging
-import pygame
-
 class Enemy():
 
     nom = "Enemy"
     start_pv=(1,10)
-    fire_recovery = 2.0
+    fire_recovery = 5.5
 
 
     def __init__(self,game,position,pv=None):
