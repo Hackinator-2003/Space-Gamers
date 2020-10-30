@@ -5,14 +5,11 @@ from core.GUI import*
 class Boss(Enemy):
 
 
+    fire_recovery = 2.0
 
-    nom = "boss"
-
-    def __init__(self,game,position,pv=None):
+    def __init__(self,game,position):
         self.pos=position
         self.game=game
-        if pv==None: self.pv=randint(self.start_pv[0],self.start_pv[1])
-        else: self.pv = pv
         self.speed=100
         self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         self.fire_timer = 0
@@ -24,19 +21,17 @@ class Boss(Enemy):
             self.fire_timer = 0.0
 
 
+    def move(self,dt,speed):
+        rand=randint(0,1)
+        if rand==0:
+            self.pos[0]-=speed*dt
+        else:
+            self.pos[0]+=speed*dt
 
-    def dead(self):
-        if self.pv <= 0:
-            for i,x in enumerate(self.game.boss):
-                if x == self:
-                    del self.game.boss[i]
-        else: pass
-
+        if self.pos[0]>550-212: self.pos[0]=550-212
+        if self.pos[0]<0: self.pos[0]=0
 
     def update(self,dt):
         self.fire_timer += dt
-        self.dead()
-
-
 
 

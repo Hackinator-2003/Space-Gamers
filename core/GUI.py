@@ -133,7 +133,7 @@ class PygameGui():
                 self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
 
 
-            if round(exec_)!=0 and round(exec_)%60.0 == 0:
+            if round(exec_) == 6.00 or round(exec_) == 120.0:
                 if len(self.game.boss)<1:
                     self.game.boss.append(Boss(self.game,[200,100]))
 
