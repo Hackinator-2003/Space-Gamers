@@ -69,9 +69,10 @@ Il a été réalisé dans le cadre d'un
 Projet au lycée en classe de NSI""")
         info_pts = Section("Points","texte","""Comment sont comptabiliser les points ?
 
-Tirer             : -1 pt
-Tuer un rouge     : +100pt
-Tier sur un rouge : +10pt
+Tirer             : -1   pt
+Perdre une vie    : -200 pts
+Tuer un rouge     : +100 pts
+Tirer sur un rouge: +10  pts
 """)
         info_opt_inp = Section("Inputs","texte","""Modifier vos touches dans conf.ini
 
@@ -89,7 +90,8 @@ Liste des clées:
         info_opt_gui = Section("Graphique","texte","""Modifier vos options dans conf.ini
 
 Dans la section "GUI" vous avez:
-ShowHitbox: si "T", affiche les hitboxes
+ShowHitbox: si "T", affiche
+            les hitboxes
 """)
         info_opt = Section("Options", [info_opt_inp,info_opt_gui])
         info_opt.parent = "Information"
@@ -118,6 +120,7 @@ ShowHitbox: si "T", affiche les hitboxes
     # Méthode de la boucle principale
     def __mainLoop(self):
         self.screen = pygame.display.set_mode(self.size)
+        pygame.display.set_caption("Space Invader")
         logging.debug("GUI mainloop called !")
         self.running = True
         clock = pygame.time.Clock()
@@ -148,6 +151,16 @@ ShowHitbox: si "T", affiche les hitboxes
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:self.quit();break
+                if event.type == pygame.MOUSEMOTION:
+                    pos = pygame.mouse.get_pos()
+
+                    if isinstance(self.active_section.action,list):
+                        if 40 <= pos[0] <= self.size[0]-40: 
+                            for x,value in enumerate(self.active_section.action):
+                                if x*60+300 <= pos[1] <= x*60+355: selected = x
+
+
+
                 if event.type == pygame.KEYUP:
                     if pressed[self.touches[self.input_config["left"]]]: selected -= 1
                     elif pressed[self.touches[self.input_config["right"]]]: selected += 1
@@ -182,15 +195,15 @@ ShowHitbox: si "T", affiche les hitboxes
                     selected = 0
 
             elif isinstance(self.active_section.action,str):
-                pygame.draw.rect(self.screen,(20,20,20,200),(40,200,self.size[0]-80,400))
+                pygame.draw.rect(self.screen,(20,20,20,200),(40,150,self.size[0]-80,400))
 
                 for x,value in enumerate(self.active_section.description.split("\n")):
                     ok = desc_font.render(value, True, (255,255,255))
-                    self.screen.blit(ok,(40,x*30+205))
+                    self.screen.blit(ok,(40,x*30+155))
                 
                 pygame.draw.rect(self.screen,(255,255,100),(38,598,self.size[0]-76,64))
                 pygame.draw.rect(self.screen,(20,20,20,200),(40,600,self.size[0]-80,60))
-                ok = text_font.render("return", True, (255,0,0))
+                ok = text_font.render("Retour", True, (255,50,50))
                 self.screen.blit(ok,(60,605))
                 if press:
                     self.active_section = ret

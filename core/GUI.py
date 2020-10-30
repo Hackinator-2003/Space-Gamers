@@ -57,7 +57,6 @@ class PygameGui():
     def start(self,screen):
         logging.info("Starting GUI mainloop")
         self.screen = screen
-        pygame.display.set_caption("Space Invader")
         pygame.display.flip()
         logging.debug("Calling game.start()")
         self.__mainLoop()
