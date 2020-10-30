@@ -17,7 +17,6 @@ class Boss(Enemy):
         self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         self.fire_timer = 0
 
-
     def shoot(self,dt):
         if self.fire_timer >= self.fire_recovery:
             self.lasershot_sound.play()

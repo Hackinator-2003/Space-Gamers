@@ -16,7 +16,7 @@ class Player():
         self.game = game
         self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         logging.debug("init player at "+str(position)+", pv="+str(pv))
-        self.fire_timer = 0
+        self.fire_timer = 0 
 
     def update(self,dt):
         self.fire_timer += dt
@@ -51,7 +51,4 @@ class Player():
         logging.debug("Right click event called")
         self.pos[1]+=PygameGui.speed*dt
         if self.pos[1]>700-60: self.pos[1]=700-60
-
-    def degat(self):
-        self.pv -= 1
 

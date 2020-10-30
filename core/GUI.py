@@ -123,19 +123,9 @@ class PygameGui():
 
 
                     if bullet.pos[1]<0 or bullet.pos[1]>700-79:
-
                         for i,x in enumerate(self.game.bullets):
                             if x == bullet:
                                 del self.game.bullets[i]
-
-                    elif bullet.type_ == "down" and (((bullet.pos[0]>=self.game.player.pos[0] and bullet.pos[0]<=self.game.player.pos[0]+60)or(bullet.pos[0]+35>=self.game.player.pos[0] and bullet.pos[0]+35<=self.game.player.pos[0]+60)) and ((bullet.pos[1]>=self.game.player.pos[1] and bullet.pos[1]<=self.game.player.pos[1]+60)or(bullet.pos[1]+79>=self.game.player.pos[1] and bullet.pos[1]+79<=self.game.player.pos[1]+60))):
-
-                        self.game.player.degat()
-                        for i,x in enumerate(self.game.bullets):
-                            if x == bullet:
-                                del self.game.bullets[i]
-
-
 
 
             for bullet in self.game.bullets:
@@ -146,7 +136,6 @@ class PygameGui():
             if round(exec_)!=0 and round(exec_)%60.0 == 0:
                 if len(self.game.boss)<1:
                     self.game.boss.append(Boss(self.game,[200,100]))
-
 
 
 
