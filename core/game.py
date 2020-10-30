@@ -48,9 +48,6 @@ class Game():
         for i,enemy in enumerate(self.enemys):
             if enemy.pv <= 0: del self.enemys[i]
 
-            
-
-
     def update(self,dt):
         
         self.timer_new_enemys += dt

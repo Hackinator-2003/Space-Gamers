@@ -99,7 +99,7 @@ class PygameGui():
         self.screen.blit(texte,(texte_rect[0],10))
 
         # affichage du joueur
-        self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0],self.game.player.pos[1]))
+        self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0]-self.game.player.vaisceau.get_rect().width//2,self.game.player.pos[1]-self.game.player.vaisceau.get_rect().height//2))
         fire = pygame.image.load("core/rsc/img/tire.png")
 
         # affichage de la vie / écran de game-over (on verra si on fais vraiment comme ça)
@@ -107,16 +107,21 @@ class PygameGui():
         elif self.game.player.pv==2: point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
         elif self.game.player.pv==1: point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
         elif self.game.player.pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
-
         self.screen.blit(point_de_vie,(0,0))
 
         # affichange des missiles
         for bullet in self.game.bullets:
-            if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0],bullet.pos[1]))
-            else: self.screen.blit(pygame.transform.flip(fire,True,False),(bullet.pos[0],bullet.pos[1]))
+            if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
+            else: self.screen.blit(pygame.transform.flip(fire,True,False),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
+        
+            if self.gui_config["ShowHitbox"] == "T":
+                pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
 
         # affichange des enemies
         for enemy in self.game.enemys:
+            if self.gui_config["ShowHitbox"] == "T":
+                rad = enemy.hitbox_rad
+                pygame.draw.rect(self.screen, (0,255,0), (enemy.pos[0]-rad,enemy.pos[1]-rad,rad*2,rad*2),1)
             if enemy.type_ == "normal": look = pygame.image.load("core/rsc/img/placeholder.png")
             else: look = pygame.image.load("core/rsc/img/placeholder.png")
             self.screen.blit(look,(enemy.pos[0]-look.get_rect().width//2,enemy.pos[1]-look.get_rect().height//2))
@@ -144,7 +149,7 @@ class PygameGui():
         logging.warn("Gui.quit() called !")
         pygame.quit()
         self.running = False
-        exit()
+        exit(1)
 
 #######################################################################################################################################################
 
