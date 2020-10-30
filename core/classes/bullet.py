@@ -16,7 +16,3 @@ class Bullet():
     def update(self,dt):
         pass
 
-    def dead(self,liste):
-        for i,x in enumerate(liste):
-            if x == self:
-                del liste[i]
