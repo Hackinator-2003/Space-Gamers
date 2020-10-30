@@ -4,6 +4,8 @@ from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
 from core.configparser import get_config
 
+from random import randint
+
 class Game():
 
     def __init__(self):
@@ -14,7 +16,10 @@ class Game():
         self.enemys = []
         self.pl_bullets = []
         self.en_bullets = []
-        self.timer_new_enemys = 0
+        self.general_timer = 0
+        self.timers = {
+            "n_en_basic":[0,3] # new enemy 
+        }
 
 
 
@@ -55,10 +60,14 @@ class Game():
 
     def update(self,dt):
         
-        self.timer_new_enemys += dt
-        if self.timer_new_enemys >= 3.0:
-            self.timer_new_enemys = 0
-            self.enemys.append(Enemy(self,"normal",[250,0]))
+        self.general_timer += dt
+        for x in self.timers.keys():
+            self.timers[x][0] += dt
+        
+        if self.timers["n_en_basic"][0] >= self.timers["n_en_basic"][1]:
+            self.timers["n_en_basic"][0] = 0
+            self.timers["n_en_basic"][1] * 0.7
+            self.enemys.append(Enemy(self,"normal",[randint(20,530),0]))
         
         # call update on entitys
         self.player.update(dt)

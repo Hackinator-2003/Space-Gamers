@@ -17,6 +17,7 @@ class Section(): # Type de sauvegarde de donné pour structuré le menu
         self.color = color
         self.description = description
         self.hold_color = hold_color
+        self.parent = None
         
 
 
@@ -56,9 +57,8 @@ class MainMenuPygameGui():
         pygame.mixer.music.play(loops=-1)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("Creating sections")
-        self.active_section = Section("Space Gamers", [
-                Section("Jouer",self.play),
-                Section("Informations","texte","""Ce jeu à été réaliser par Cyprien
+
+        info_credits = Section("Crédits","texte","""Ce jeu à été réaliser par Cyprien
 Bourotte, Aurélien XXXX et Marc XXXXX.
 
 
@@ -66,10 +66,39 @@ C'est un jeu simpa, avec des rockets
 ou l'on tire sur des enemies.
 
 Il a été réalisé dans le cadre d'un
-Projet au lycée en classe de NSI"""),
-                Section("Quit",self.quit,"",(255,50,50),(255,100,100))],
-            "logo"
-        )
+Projet au lycée en classe de NSI""")
+        info_pts = Section("Points","texte","""Comment sont comptabiliser les points ?
+
+Tirer             : -1 pt
+Tuer un rouge     : +100pt
+Tier sur un rouge : +10pt
+""")
+        info_opt_inp = Section("Inputs","texte","""Modifier vos touches dans conf.ini
+
+Dans la section "INPUT", en utili-
+sant les noms de touche pygame.
+
+Liste des clées:
+ - left  : bouger à gauche
+ - right : bouger à droite
+ - down  : bouger en bas
+ - up    : bouger en haut
+ - fire  : tirer
+""")
+
+        info_opt_gui = Section("Graphique","texte","""Modifier vos options dans conf.ini
+
+Dans la section "GUI" vous avez:
+ShowHitbox: si "T", affiche les hitboxes
+""")
+        info_opt = Section("Options", [info_opt_inp,info_opt_gui])
+        info_opt.parent = "Information"
+        info = Section("Information", [info_pts,info_opt,info_credits])
+        info.parent = "Space Gamers"
+        info_opt.action.append(info)
+        menu = Section("Space Gamers", [Section("Jouer",self.play),info,Section("Quit",self.quit,"",(255,50,50),(255,100,100))],"logo")
+        info.action.append(menu)
+        self.active_section = menu
         self.__mainLoop()
 
     def play(self):
@@ -137,6 +166,8 @@ Projet au lycée en classe de NSI"""),
                     if selected == x: pygame.draw.rect(self.screen,(255,255,100),(38,x*60+300-2,self.size[0]-76,60-1))
                     pygame.draw.rect(self.screen,(20,20,20,200),(40,x*60+300,self.size[0]-80,60-5))
                     ok = text_font.render(value.text,True, value.color)
+                    if value.text == self.active_section.parent:
+                        ok = text_font.render("Retour",True, (255,50,50))
                     self.screen.blit(ok,(60,x*60+300))
 
 
@@ -151,7 +182,7 @@ Projet au lycée en classe de NSI"""),
                     selected = 0
 
             elif isinstance(self.active_section.action,str):
-                pygame.draw.rect(self.screen,(20,20,20,200),(40,200,self.size[0]-80,300))
+                pygame.draw.rect(self.screen,(20,20,20,200),(40,200,self.size[0]-80,400))
 
                 for x,value in enumerate(self.active_section.description.split("\n")):
                     ok = desc_font.render(value, True, (255,255,255))

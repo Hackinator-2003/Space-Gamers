@@ -24,6 +24,9 @@ class Enemy():
             self.fire_timer = 0
             self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"down",300))
 
+    def __del__(self):
+        if self.type_ == "normal":self.game.player.score+=100
     
     def damage(self):
         self.pv -= 1
+        if self.type_ == "normal":self.game.player.score+=10

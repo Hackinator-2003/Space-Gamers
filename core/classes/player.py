@@ -31,6 +31,7 @@ class Player():
             self.lasershot_sound.play()
             self.game.pl_bullets.append(Bullet([self.pos[0],self.pos[1]-self.hitbox_rad-1],"up"))
             self.fire_timer = 0.0
+            self.score -= 1
 
     # Réaction après l'event de clic droit
     def left(self,dt):
@@ -42,7 +43,7 @@ class Player():
     def right(self,dt):
         logging.debug("Right click event called")
         self.pos[0]+=self.speed*dt
-        if self.pos[0]>550-60: self.pos[0]=550-60
+        if self.pos[0]>550: self.pos[0]=550
 
     # Réaction après l'event de clic droit
     def up(self,dt):
@@ -55,5 +56,5 @@ class Player():
     def down(self,dt):
         logging.debug("Right click event called")
         self.pos[1]+=self.speed*dt
-        if self.pos[1]>700-60: self.pos[1]=700-60
+        if self.pos[1]>700: self.pos[1]=700
 
