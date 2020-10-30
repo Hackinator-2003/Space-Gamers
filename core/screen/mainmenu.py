@@ -94,9 +94,9 @@ Projet au lycée en classe de NSI"""),
         clock = pygame.time.Clock()
         exec_= 0
         time = 0
-        title_font = pygame.font.SysFont('core/rsc/fonts/korona.ttf', 120)
-        text_font = pygame.font.SysFont('core/rsc/fonts/syne.ttf', 72)
-        desc_font = pygame.font.SysFont('core/rsc/fonts/syne.ttf', 30)
+        title_font = pygame.font.Font('core/rsc/fonts/korona.ttf', 60)
+        text_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 45)
+        desc_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 22)
         selected = 0
         ret = 0
 
@@ -109,8 +109,10 @@ Projet au lycée en classe de NSI"""),
             # now print the main text / logo
             if self.active_section.description != "logo":
                 main = title_font.render(self.active_section.text,True, self.active_section.color)
-            else: main = self.logo
-            self.screen.blit(main,(10,80))
+                self.screen.blit(main,(25,20))
+            else:
+                main = self.logo
+                self.screen.blit(main,(50,50))
 
             pressed = pygame.key.get_pressed()
             press = False
@@ -135,7 +137,7 @@ Projet au lycée en classe de NSI"""),
                     if selected == x: pygame.draw.rect(self.screen,(255,255,100),(38,x*60+300-2,self.size[0]-76,60-1))
                     pygame.draw.rect(self.screen,(20,20,20,200),(40,x*60+300,self.size[0]-80,60-5))
                     ok = text_font.render(value.text,True, value.color)
-                    self.screen.blit(ok,(60,x*60+300+5))
+                    self.screen.blit(ok,(60,x*60+300))
 
 
                 if press:
