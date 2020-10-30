@@ -54,13 +54,12 @@ class PygameGui():
 
 
     # Méthode du lancement de la boucle principale
-    def start(self):
+    def start(self,screen):
         logging.info("Starting GUI mainloop")
-        self.screen = pygame.display.set_mode(self.size)
+        self.screen = screen
         pygame.display.set_caption("Space Invader")
         pygame.display.flip()
         logging.debug("Calling game.start()")
-        self.game.start()
         self.__mainLoop()
 
     # Méthode de la boucle principale
@@ -120,7 +119,6 @@ class PygameGui():
             if self.game.bullets != None:
                 for bullet in self.game.bullets:
                     bullet.pos[1]-=self.speed_bullet*self.dt
-
 
                     if bullet.pos[1]<0:
                         for i,x in enumerate(self.game.bullets):

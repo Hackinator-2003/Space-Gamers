@@ -3,11 +3,23 @@ import logging
 import pygame
 from core.game import Game as jeu
 from core.GUI import PygameGui as PyGameGUI
+
+from core.configparser import get_config
 #######################################################################################################################################
 
-pygame.init()
+# pygame.init() pas besoin car initialisé dans menu.start()
 
-############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
+class Section(): # Type de sauvegarde de donné pour structuré le menu
+
+    def __init__(self,text,action,description="",color=(100,100,100),hold_color=(200,200,200)):
+        self.text = text
+        self.action = action
+        self.color = color
+        self.description = description
+        self.hold_color = hold_color
+        
+
+
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 
 #Création de la classe PygameGui
@@ -23,117 +35,135 @@ class MainMenuPygameGui():
     Methodes :
 
     """
+    
 
 
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
 
     #Initialisation de la classe PygameGui et de ses attributs
     def __init__(self,size=(550,700)):
+        logging.debug("initialisation of Pygame...")
+        pygame.init()
         self.screen = None
         self.running = False
         self.size = size
+        self.config = get_config()
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
         self.logo=pygame.image.load("core/rsc/img/logo.png")
-        self.play_button=pygame.image.load("core/rsc/img/play-button.png")
-        self.setting_button=pygame.image.load("core/rsc/img/setting-button.png")
-        self.oldsi=pygame.image.load("core/rsc/img/old-si.png")
-        self.play_button_over=pygame.image.load("core/rsc/img/play-button-over.png")
-        self.setting_button_over=pygame.image.load("core/rsc/img/setting-button-over.png")
+        self.input_config = self.config["INPUT"]
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
         pygame.mixer.music.load("core/rsc/sounds/music.mp3")
         pygame.mixer.music.play(loops=-1)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
-        logging.debug("init Pygame...")
-        pygame.init()
-        self.dt = 0
+        logging.debug("Creating sections")
+        self.active_section = Section("Space Gamers", [
+                Section("Jouer",self.play),
+                Section("Informations","texte","""Ce jeu à été réaliser par Cyprien
+Bourotte, Aurélien XXXX et Marc XXXXX.
 
 
+C'est un jeu simpa, avec des rockets
+ou l'on tire sur des enemies.
+
+Il a été réalisé dans le cadre d'un
+Projet au lycée en classe de NSI"""),
+                Section("Quit",self.quit,"",(255,50,50),(255,100,100))],
+            "logo"
+        )
+        self.__mainLoop()
+
+    def play(self):
+        logging.info("Setup main menu")
+        self.valid_menu_sound.play()
+        pygame.time.wait(20)
+        pygame.mouse.set_cursor(*pygame.cursors.arrow)
+        game = jeu()
+        Gui = PyGameGUI(game)
+        Gui.start(self.screen)
 
 
 #######################################################################################################################################################
 
 ################################################## DEFINITION DES METHODES DE LA CLASSE PYGAMEGUI #####################################################
 
-
-
-
-    # Méthode du lancement de la boucle principale
-    def start(self):
-        logging.info("Starting GUI mainloop")
-        self.screen = pygame.display.set_mode(self.size)
-        pygame.display.set_caption("Space Invader")
-        pygame.display.flip()
-        logging.debug("Calling ggamemenu.start()")
-        self.__mainLoop()
-
     # Méthode de la boucle principale
     def __mainLoop(self):
+        self.screen = pygame.display.set_mode(self.size)
         logging.debug("GUI mainloop called !")
         self.running = True
         clock = pygame.time.Clock()
         exec_= 0
         time = 0
+        title_font = pygame.font.SysFont('core/rsc/fonts/korona.ttf', 120)
+        text_font = pygame.font.SysFont('core/rsc/fonts/syne.ttf', 72)
+        desc_font = pygame.font.SysFont('core/rsc/fonts/syne.ttf', 30)
+        selected = 0
+        ret = 0
 
         #Tant que la boucle principale est en cours d'excution
         while self.running:
 
-            # Calculation du delaTime utile pour les transitions
-            self.dt = clock.tick()/1000
-            exec_ += self.dt
-
             # affichage du fond
             self.screen.blit(self.fond,(0,0))
 
-            logo_rect = self.logo.get_rect(center=(self.size[0]/2,0))
-            logo_coo=(logo_rect[0],0)
-            logo_size=(self.logo.get_width(),self.logo.get_height())
-            self.screen.blit(self.logo,logo_coo)
+            # now print the main text / logo
+            if self.active_section.description != "logo":
+                main = title_font.render(self.active_section.text,True, self.active_section.color)
+            else: main = self.logo
+            self.screen.blit(main,(10,80))
 
-            play_rect = self.play_button.get_rect(center=(self.size[0]/2,0))
-            play_coo=(play_rect[0],logo_rect[3])
-            play_size=(self.play_button.get_width(),self.play_button.get_height())
-            self.screen.blit(self.play_button,play_coo)
-
-            setting_rect = self.setting_button.get_rect(center=(self.size[0]/2,0))
-            setting_coo=(setting_rect[0],logo_rect[3]+20+play_rect[3])
-            setting_size=(self.setting_button.get_width(),self.setting_button.get_height())
-            self.screen.blit(self.setting_button,setting_coo)
-
-            oldsi_rect = self.oldsi.get_rect(center=(self.size[0]/2,0))
-            oldsi_coo=(oldsi_rect[0],logo_rect[3]+20+play_rect[3]+20+setting_rect[3])
-            oldsi_size=((self.oldsi.get_width(),self.oldsi.get_height()))
-            self.screen.blit(self.oldsi,oldsi_coo)
-            # flip
-            pygame.display.flip()
-
-            # affichage du fond
+            pressed = pygame.key.get_pressed()
+            press = False
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:self.quit();break
-                if event.type == pygame.MOUSEMOTION:
-                     mouse_x, mouse_y = pygame.mouse.get_pos()
-                     if(((play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1]))
-                     or
-                     (setting_coo[0] < mouse_x < setting_coo[0] + setting_size[0]) and (setting_coo[1] < mouse_y < setting_coo[1] + setting_size[1])):
-                        pygame.mouse.set_cursor(*pygame.cursors.tri_left)
-                     else:
-                        pygame.mouse.set_cursor(*pygame.cursors.arrow)
-
+                if event.type == pygame.KEYUP:
+                    if pressed[self.touches[self.input_config["left"]]]: selected -= 1
+                    elif pressed[self.touches[self.input_config["right"]]]: selected += 1
+                    elif pressed[self.touches[self.input_config["up"]]]: selected -= 1
+                    elif pressed[self.touches[self.input_config["down"]]]: selected += 1
+                    selected %= len(self.active_section.action)
+                    if pressed[self.touches[self.input_config["fire"]]]: press = True
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    # Set the x, y postions of the mouse click
-                    x, y = event.pos
-                    if ((play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1])):
-                        self.screen.blit(self.play_button_over,play_coo)
-                        pygame.display.flip()
-                        self.valid_menu_sound.play()
-                        pygame.time.wait(20)
-                        pygame.mouse.set_cursor(*pygame.cursors.arrow)
-                        game = jeu()
-                        Gui = PyGameGUI(game)
-                        Gui.start()
+                    press = True
+                    pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
+            
+            
+            if isinstance(self.active_section.action,list):
+                
+                for x,value in enumerate(self.active_section.action):
+                    if selected == x: pygame.draw.rect(self.screen,(255,255,100),(38,x*60+300-2,self.size[0]-76,60-1))
+                    pygame.draw.rect(self.screen,(20,20,20,200),(40,x*60+300,self.size[0]-80,60-5))
+                    ok = text_font.render(value.text,True, value.color)
+                    self.screen.blit(ok,(60,x*60+300+5))
 
 
+                if press:
+                    if callable(self.active_section.action[selected].action):self.active_section.action[selected].action() # si l'action est une fontion, set
+                    elif isinstance(self.active_section.action[selected].action,list): # si l'action est list de section
+                        ret = self.active_section
+                        self.active_section = self.active_section.action[selected]
+                    elif isinstance(self.active_section.action[selected].action,str):
+                        ret = self.active_section
+                        self.active_section = self.active_section.action[selected]
+                    selected = 0
 
+            elif isinstance(self.active_section.action,str):
+                pygame.draw.rect(self.screen,(20,20,20,200),(40,200,self.size[0]-80,300))
+
+                for x,value in enumerate(self.active_section.description.split("\n")):
+                    ok = desc_font.render(value, True, (255,255,255))
+                    self.screen.blit(ok,(40,x*30+205))
+                
+                pygame.draw.rect(self.screen,(255,255,100),(38,598,self.size[0]-76,64))
+                pygame.draw.rect(self.screen,(20,20,20,200),(40,600,self.size[0]-80,60))
+                ok = text_font.render("return", True, (255,0,0))
+                self.screen.blit(ok,(60,605))
+                if press:
+                    self.active_section = ret
+
+            # flip
+            pygame.display.flip()
 
     # Fermeture de la fenêtre
     def quit(self):
