@@ -5,7 +5,7 @@ import pygame
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
 from core.classes.Boss import Boss
-
+import sys
 #######################################################################################################################################
 
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
@@ -93,29 +93,30 @@ class PygameGui():
         # affichage du fond
         self.screen.blit(self.fond,(0,0))
 
-        police = pygame.font.Font(None,55)
-        texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#FFFFFF"))
-        texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
-        self.screen.blit(texte,(texte_rect[0],10))
-
         # affichage du joueur
         self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0]-self.game.player.vaisceau.get_rect().width//2,self.game.player.pos[1]-self.game.player.vaisceau.get_rect().height//2))
         fire = pygame.image.load("core/rsc/img/tire.png")
+        
+        if self.gui_config["ShowHitbox"] == "T":
+            rad = self.game.player.hitbox_rad
+            pygame.draw.rect(self.screen, (0,255,0), (self.game.player.pos[0]-rad,self.game.player.pos[1]-rad,rad*2,rad*2),1)
 
-        # affichage de la vie / écran de game-over (on verra si on fais vraiment comme ça)
-        if self.game.player.pv==3: point_de_vie =  pygame.image.load("core/rsc/img/3_coeurs.png")
-        elif self.game.player.pv==2: point_de_vie =  pygame.image.load("core/rsc/img/2_coeurs.png")
-        elif self.game.player.pv==1: point_de_vie =  pygame.image.load("core/rsc/img/1_coeur.png")
-        elif self.game.player.pv==0: point_de_vie =  pygame.image.load("core/rsc/img/game-over.png")
-        self.screen.blit(point_de_vie,(0,0))
-
-        # affichange des missiles
-        for bullet in self.game.bullets:
+        # affichange des missiles du joueur
+        for bullet in self.game.pl_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-            else: self.screen.blit(pygame.transform.flip(fire,True,False),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
+            else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
         
             if self.gui_config["ShowHitbox"] == "T":
                 pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
+
+        # affichange des missiles des ennemies
+        for bullet in self.game.en_bullets:
+            if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
+            else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
+        
+            if self.gui_config["ShowHitbox"] == "T":
+                pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
+
 
         # affichange des enemies
         for enemy in self.game.enemys:
@@ -125,6 +126,20 @@ class PygameGui():
             if enemy.type_ == "normal": look = pygame.image.load("core/rsc/img/placeholder.png")
             else: look = pygame.image.load("core/rsc/img/placeholder.png")
             self.screen.blit(look,(enemy.pos[0]-look.get_rect().width//2,enemy.pos[1]-look.get_rect().height//2))
+
+        
+        # affichage du score
+        police = pygame.font.Font(None,55)
+        texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#FFFFFF"))
+        texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
+        self.screen.blit(texte,(texte_rect[0],10))
+
+        # affichage de la vie / écran de game-over (on verra si on fais vraiment comme ça)
+        if self.game.player.pv>=3: point_de_vie = pygame.image.load("core/rsc/img/3_coeurs.png")
+        elif self.game.player.pv==2: point_de_vie = pygame.image.load("core/rsc/img/2_coeurs.png")
+        elif self.game.player.pv==1: point_de_vie = pygame.image.load("core/rsc/img/1_coeur.png")
+        elif self.game.player.pv<=0: point_de_vie = pygame.image.load("core/rsc/img/game-over.png")
+        self.screen.blit(point_de_vie,(0,0))
 
         # flip
         pygame.display.flip()
@@ -149,7 +164,7 @@ class PygameGui():
         logging.warn("Gui.quit() called !")
         pygame.quit()
         self.running = False
-        exit(1)
+        sys.exit(0)
 
 #######################################################################################################################################################
 

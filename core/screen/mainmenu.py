@@ -3,7 +3,7 @@ import logging
 import pygame
 from core.game import Game as jeu
 from core.GUI import PygameGui as PyGameGUI
-
+import sys
 from core.configparser import get_config
 #######################################################################################################################################
 
@@ -169,9 +169,10 @@ Projet au lycée en classe de NSI"""),
 
     # Fermeture de la fenêtre
     def quit(self):
+        logging.warn("Menu.quit() called !")
         pygame.quit()
         self.running = False
-        exit()
+        sys.exit(0)
 
 #######################################################################################################################################################
 

@@ -10,7 +10,7 @@ class Bullet():
 
     def move(self,dt): 
         if self.type_ == "up":self.pos[1] -= self.speed*dt
-        if self.type_ == "down":self.pos[1] += speed*dt
+        if self.type_ == "down":self.pos[1] += self.speed*dt
 
     def update(self,dt):
         pass

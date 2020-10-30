@@ -11,8 +11,9 @@ class Game():
         logging.debug("loading config...")
         self.config = get_config()
         self.player = Player(self,[252,500])
-        self.enemys = [Enemy(self,[30,30]),Enemy(self,[60,30]),Enemy(self,[90,30])]
-        self.bullets = []
+        self.enemys = []
+        self.pl_bullets = []
+        self.en_bullets = []
         self.timer_new_enemys = 0
 
 
@@ -25,24 +26,28 @@ class Game():
         def is_in(pos,pos2,rad):
             return pos2[0]-rad <= pos[0] <= pos2[0]+rad and pos2[1]-rad <= pos[1] <= pos2[1]+rad
         
-        for i,bullet in enumerate(self.bullets):
+        for i,bullet in enumerate(self.en_bullets):
             if is_in(bullet.pos,self.player.pos,self.player.hitbox_rad):
-                print("PLAYER IN BULLET")
-                if len(self.bullets) >= i: del self.bullets[i]
+                logging.info("Player take en bullet: pv="+str(self.player.pv))
+                del self.en_bullets[i]
+                print(self.en_bullets)
                 self.player.damage()
+                break
         
         for i,enemy in enumerate(self.enemys):
             if is_in(enemy.pos,self.player.pos,self.player.hitbox_rad+enemy.hitbox_rad):
-                print("PLAYER IN ENEMY")
+                logging.info("Player collide: pv="+str(self.player.pv))
                 self.player.damage()
-                if len(self.enemys) >= i: del self.enemys[i]
+                del self.enemys[i]
+                break
         
-        for i,bullet in enumerate(self.bullets):
+        for i,bullet in enumerate(self.pl_bullets):
             for enemy in self.enemys:
                 if is_in(enemy.pos,bullet.pos,enemy.hitbox_rad):
-                    print("BULLET IN ENEMY")
+                    logging.info("enemy take pl bullet: pv="+str(enemy.pv))
                     enemy.damage()
-                    if len(self.bullets) >= i: del self.bullets[i]
+                    del self.pl_bullets[i]
+                    break
         
         
         for i,enemy in enumerate(self.enemys):
@@ -58,18 +63,18 @@ class Game():
         # call update on entitys
         self.player.update(dt)
         for enemy in self.enemys:enemy.update(dt)
-        for bullet in self.bullets:bullet.update(dt)
+        for bullet in self.pl_bullets:bullet.update(dt);bullet.move(dt)
+        for bullet in self.en_bullets:bullet.update(dt);bullet.move(dt)
 
         self.check_coll()
 
-        if self.bullets != None:
-            for bullet in self.bullets:
-                bullet.move(dt)
-
-                if bullet.pos[1]<0:
-                    for i,x in enumerate(self.bullets):
-                        if x == bullet:
-                            del self.bullets[i]
+        for i, bullet in enumerate(self.pl_bullets):
+            if bullet.pos[1]<0 or bullet.pos[1]>700:
+                del self.pl_bullets[i]
+        
+        for i, bullet in enumerate(self.en_bullets):
+            if bullet.pos[1]<0 or bullet.pos[1]>700:
+                del self.en_bullets[i]
 
 
 
