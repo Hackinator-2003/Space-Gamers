@@ -119,10 +119,10 @@ class PygameGui():
 
             if self.game.bullets != None:
                 for bullet in self.game.bullets:
-                    bullet.move(self.dt)
+                    bullet.pos[1]-=self.speed_bullet*self.dt
 
 
-                    if bullet.pos[1]<0 or bullet.pos[1]>700-79:
+                    if bullet.pos[1]<0:
                         for i,x in enumerate(self.game.bullets):
                             if x == bullet:
                                 del self.game.bullets[i]
@@ -134,14 +134,13 @@ class PygameGui():
 
 
             if round(exec_) == 6 or round(exec_) == 120:
-                self.game.boss.append(Boss(self.game,[200,100]))
+                self.game.boss.append(Boss([200,100]))
 
 
             for boss in self.game.boss:
                 bosse = pygame.image.load("core/rsc/img/blue-enemy.png")
                 self.screen.blit(bosse,(boss.pos[0],boss.pos[1]))
                 boss.mov(self.dt)
-                boss.shoot(self.dt)
 
 
 
@@ -150,10 +149,6 @@ class PygameGui():
 
             # call update on entitys
             self.game.player.update(self.dt)
-
-            for boss in self.game.boss:
-                boss.update(self.dt)
-
             for enemy in self.game.enemys:
                 enemy.update(self.dt)
 
