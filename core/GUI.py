@@ -123,6 +123,7 @@ class PygameGui():
 
 
                     if bullet.pos[1]<0 or bullet.pos[1]>700-79:
+
                         bullet.dead(self.game.bullets)
 
                     elif bullet.type_ == "down" and (((bullet.pos[0]>=self.game.player.pos[0] and bullet.pos[0]<=self.game.player.pos[0]+60)or(bullet.pos[0]+35>=self.game.player.pos[0] and bullet.pos[0]+35<=self.game.player.pos[0]+60)) and ((bullet.pos[1]>=self.game.player.pos[1] and bullet.pos[1]<=self.game.player.pos[1]+60)or(bullet.pos[1]+79>=self.game.player.pos[1] and bullet.pos[1]+79<=self.game.player.pos[1]+60))):
@@ -134,12 +135,12 @@ class PygameGui():
 
                         for enemy in self.game.enemys:
                             if  bullet.type_ == "up" and (((bullet.pos[0]>=enemy.pos[0] and bullet.pos[0]<=enemy.pos[0]+60)or(bullet.pos[0]+35>=enemy.pos[0] and bullet.pos[0]+35<=enemy.pos[0]+60)) and ((bullet.pos[1]>=enemy.pos[1] and bullet.pos[1]<=enemy.pos[1]+60)or(bullet.pos[1]+79>=enemy.pos[1] and bullet.pos[1]+79<=enemy.pos[1]+60))):
-                                enemy.degat(self.game.enemys)
+                                enemy.degat()
                                 bullet.dead(self.game.bullets)
 
                         for boss in self.game.boss:
-                            if bullet.type_ == "up" and (((bullet.pos[0]>=boss.pos[0] and bullet.pos[0]<=boss.pos[0]+212)or(bullet.pos[0]+35>=boss.pos[0] and bullet.pos[0]+35<=boss.pos[0]+212)) and ((bullet.pos[1]>=boss.pos[1] and bullet.pos[1]<=boss.pos[1]+100)or(bullet.pos[1]+79>=boss.pos[1] and bullet.pos[1]+79<=boss.pos[1]+100))):
-                                boss.degat(self.game.boss)
+                            if bullet.type_ == "up" and (((bullet.pos[0]>=boss.pos[0] and bullet.pos[0]<=boss.pos[0]+212)or(bullet.pos[0]+35>=boss.pos[0] and bullet.pos[0]+35<=boss.pos[0]+212)) and ((bullet.pos[1]>=boss.pos[1] and bullet.pos[1]<=boss.pos[1]+189)or(bullet.pos[1]+79>=boss.pos[1] and bullet.pos[1]+79<=boss.pos[1]+189))):
+                                boss.degat()
                                 bullet.dead(self.game.bullets)
 
 
@@ -154,6 +155,7 @@ class PygameGui():
             if round(exec_)!=0 and round(exec_)%60.0 == 0:
                 if len(self.game.boss)<1:
                     self.game.boss.append(Boss(self.game,[200,100],100))
+
 
 
 
