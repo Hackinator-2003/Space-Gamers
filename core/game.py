@@ -67,8 +67,7 @@ class Game():
         if self.timers["n_en_basic"][0] >= self.timers["n_en_basic"][1]:
             self.timers["n_en_basic"][0] = 0
             self.timers["n_en_basic"][1] * 0.7
-            if self.enemys[0].type_!="boss":
-                self.enemys.append(Enemy(self,"normal",[randint(20,530),0]))
+            self.enemys.append(Enemy(self,"normal",[randint(20,530),0]))
 
 
         if round(self.general_timer)==10:
@@ -77,6 +76,7 @@ class Game():
                     del self.enemys[i]
             if len(self.enemys)==0:
                 self.enemys.append(Boss(self,"boss",[250,0]))
+
 
 
         # call update on entitys
