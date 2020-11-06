@@ -103,6 +103,8 @@ class MainMenuPygameGui():
                      mouse_x, mouse_y = pygame.mouse.get_pos()
                      if(play_coo[0] < mouse_x < play_coo[0] + play_size[0]) and (play_coo[1] < mouse_y < play_coo[1] + play_size[1]):
                         select=0
+                     else:
+
                      if(setting_coo[0] < mouse_x < setting_coo[0] + setting_size[0]) and (setting_coo[1] < mouse_y < setting_coo[1] + setting_size[1]):
                         select=1
 
