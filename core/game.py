@@ -8,10 +8,10 @@ from random import randint
 
 class Game():
 
-    def __init__(self):
+    def __init__(self,conf):
         logging.debug("init game...")
         logging.debug("loading config...")
-        self.config = get_config()
+        self.config = conf
         self.player = Player(self,[252,500])
         self.enemys = []
         self.pl_bullets = []

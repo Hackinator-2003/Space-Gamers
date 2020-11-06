@@ -39,6 +39,7 @@ class PygameGui():
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
+        self.touches["K_MOUSE"] = len(self.touches.keys())
         logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
@@ -57,6 +58,7 @@ class PygameGui():
     def start(self,screen):
         logging.info("Starting GUI mainloop")
         self.screen = screen
+        self.ismousedown = False
         pygame.display.flip()
         logging.debug("Calling game.start()")
         self.__mainLoop()
@@ -145,11 +147,10 @@ class PygameGui():
     
     def manageEvents(self):
         # mpos = pygame.mouse.get_pos()
+        self.ismousedown = pygame.mouse.get_pressed() == 1
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:self.quit();return
-
-        pressed = pygame.key.get_pressed()
+        pressed = list(pygame.key.get_pressed())
+        pressed.append(self.ismousedown)
         if pressed[self.touches[self.input_config["left"]]]: self.game.player.left(self.dt)
         if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
         if pressed[self.touches[self.input_config["up"]]]: self.game.player.up(self.dt)
