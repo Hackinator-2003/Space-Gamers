@@ -95,7 +95,7 @@ class PygameGui():
         # affichage du joueur
         self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0]-self.game.player.vaisceau.get_rect().width//2,self.game.player.pos[1]-self.game.player.vaisceau.get_rect().height//2))
         fire = pygame.image.load("core/rsc/img/tire.png")
-        
+
         if self.gui_config["ShowHitbox"] == "T":
             rad = self.game.player.hitbox_rad
             pygame.draw.rect(self.screen, (0,255,0), (self.game.player.pos[0]-rad,self.game.player.pos[1]-rad,rad*2,rad*2),1)
@@ -104,7 +104,7 @@ class PygameGui():
         for bullet in self.game.pl_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-        
+
             if self.gui_config["ShowHitbox"] == "T":
                 pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
 
@@ -112,7 +112,7 @@ class PygameGui():
         for bullet in self.game.en_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-        
+
             if self.gui_config["ShowHitbox"] == "T":
                 pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
 
@@ -123,10 +123,11 @@ class PygameGui():
                 rad = enemy.hitbox_rad
                 pygame.draw.rect(self.screen, (0,255,0), (enemy.pos[0]-rad,enemy.pos[1]-rad,rad*2,rad*2),1)
             if enemy.type_ == "normal": look = pygame.image.load("core/rsc/img/placeholder.png")
+            elif enemy.type_ == "boss": look = pygame.image.load("core/rsc/img/red-enemy.png")
             else: look = pygame.image.load("core/rsc/img/placeholder.png")
             self.screen.blit(look,(enemy.pos[0]-look.get_rect().width//2,enemy.pos[1]-look.get_rect().height//2))
 
-        
+
         # affichage du score
         police = pygame.font.Font(None,55)
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#FFFFFF"))
@@ -142,7 +143,7 @@ class PygameGui():
 
         # flip
         pygame.display.flip()
-    
+
     def manageEvents(self):
         # mpos = pygame.mouse.get_pos()
 

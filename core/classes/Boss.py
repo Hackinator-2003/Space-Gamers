@@ -3,7 +3,12 @@ from random import randint
 
 class Boss(Enemy):
 
-    position=(10,15)
 
-    def __init__(self,position=None):
-        if self.position==None:position=randint(self.position[0],self.position[1])
+
+    def __init__(self,game,type_="boss",position=[250,0],pv=10,fire_speed=1):
+        self.pos=position
+        self.game = game
+        self.type_=type_
+        self.pv = pv
+        self.fire_timer = 0
+        self.fire_speed = fire_speed
