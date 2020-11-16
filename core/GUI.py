@@ -147,6 +147,10 @@ class PygameGui():
         pygame.display.flip()
 
     def manageEvents(self):
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:self.quit();break
+
         # mpos = pygame.mouse.get_pos()
         self.ismousedown = pygame.mouse.get_pressed() == 1
 
