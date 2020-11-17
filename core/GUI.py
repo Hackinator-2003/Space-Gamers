@@ -39,6 +39,7 @@ class PygameGui():
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
+        self.touches["K_MOUSE"] = len(self.touches.keys())
         logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
@@ -57,6 +58,7 @@ class PygameGui():
     def start(self,screen):
         logging.info("Starting GUI mainloop")
         self.screen = screen
+        self.ismousedown = False
         pygame.display.flip()
         logging.debug("Calling game.start()")
         self.__mainLoop()
@@ -95,7 +97,7 @@ class PygameGui():
         # affichage du joueur
         self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0]-self.game.player.vaisceau.get_rect().width//2,self.game.player.pos[1]-self.game.player.vaisceau.get_rect().height//2))
         fire = pygame.image.load("core/rsc/img/tire.png")
-        
+
         if self.gui_config["ShowHitbox"] == "T":
             rad = self.game.player.hitbox_rad
             pygame.draw.rect(self.screen, (0,255,0), (self.game.player.pos[0]-rad,self.game.player.pos[1]-rad,rad*2,rad*2),1)
@@ -104,7 +106,7 @@ class PygameGui():
         for bullet in self.game.pl_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-        
+
             if self.gui_config["ShowHitbox"] == "T":
                 pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
 
@@ -112,7 +114,7 @@ class PygameGui():
         for bullet in self.game.en_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-        
+
             if self.gui_config["ShowHitbox"] == "T":
                 pygame.draw.circle(self.screen, (0,255,0), (int(bullet.pos[0]),int(bullet.pos[1])),1)
 
@@ -123,10 +125,11 @@ class PygameGui():
                 rad = enemy.hitbox_rad
                 pygame.draw.rect(self.screen, (0,255,0), (enemy.pos[0]-rad,enemy.pos[1]-rad,rad*2,rad*2),1)
             if enemy.type_ == "normal": look = pygame.image.load("core/rsc/img/placeholder.png")
+            elif enemy.type_ == "boss": look = pygame.image.load("core/rsc/img/red-enemy.png")
             else: look = pygame.image.load("core/rsc/img/placeholder.png")
             self.screen.blit(look,(enemy.pos[0]-look.get_rect().width//2,enemy.pos[1]-look.get_rect().height//2))
 
-        
+
         # affichage du score
         police = pygame.font.Font(None,55)
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#FFFFFF"))
@@ -142,14 +145,17 @@ class PygameGui():
 
         # flip
         pygame.display.flip()
-    
+
     def manageEvents(self):
-        # mpos = pygame.mouse.get_pos()
-
+        
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:self.quit();return
+            if event.type == pygame.QUIT:self.quit();break
 
-        pressed = pygame.key.get_pressed()
+        # mpos = pygame.mouse.get_pos()
+        self.ismousedown = pygame.mouse.get_pressed() == 1
+
+        pressed = list(pygame.key.get_pressed())
+        pressed.append(self.ismousedown)
         if pressed[self.touches[self.input_config["left"]]]: self.game.player.left(self.dt)
         if pressed[self.touches[self.input_config["right"]]]: self.game.player.right(self.dt)
         if pressed[self.touches[self.input_config["up"]]]: self.game.player.up(self.dt)

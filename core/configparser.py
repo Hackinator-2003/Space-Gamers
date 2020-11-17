@@ -2,11 +2,6 @@
 import os
 import logging
 
-TYAPGE_CONF = {
-
-}
-
-
 def get_config(option="conf.ini",default="core/default.ini"):
     logging.debug("loading configuration="+str(option)+"and default="+str(default))
 
@@ -24,6 +19,18 @@ def get_config(option="conf.ini",default="core/default.ini"):
     logging.debug("MERGED CONFIG "+str(default_conf))
 
     return default_conf
+
+def save_config(config, path="conf.ini"):
+    
+    file_ = open(path,"w")
+
+    file_.write("# Fichier de configuration\n")
+
+    for section_name in config.keys():
+        file_.write("\n:"+section_name+"\n")
+        for key,value in config[section_name].items():
+            file_.write(key+" = "+value+"\n")
+    file_.close()
 
 
 
