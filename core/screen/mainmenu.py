@@ -4,7 +4,7 @@ import pygame
 from core.game import Game as jeu
 from core.GUI import PygameGui as PyGameGUI
 import sys
-from core.configparser import get_config
+from core.configparser import get_config, save_config
 #######################################################################################################################################
 
 # pygame.init() pas besoin car initialisé dans menu.start()
@@ -57,6 +57,7 @@ class MainMenuPygameGui():
         pygame.mixer.music.play(loops=-1)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("Creating sections")
+        self.touches["K_MOUSE"] = len(self.touches.keys())
 
         info_credits = Section("Crédits","texte","""Ce jeu à été réaliser par Cyprien
 Bourotte, Aurélien XXXX et Marc XXXXX.
@@ -93,22 +94,46 @@ Dans la section "GUI" vous avez:
 ShowHitbox: si "T", affiche
             les hitboxes
 """)
+        touches = Section("Touches",
+            [Section("ZQSD +Click", self.setconfig_zqsd),
+             Section("←↑→↓ +Espace", self.setconfig_fleches)]
+        )
+        touches.parent = "Space Gamers"
         info_opt = Section("Options", [info_opt_inp,info_opt_gui])
         info_opt.parent = "Information"
         info = Section("Information", [info_pts,info_opt,info_credits])
         info.parent = "Space Gamers"
         info_opt.action.append(info)
-        menu = Section("Space Gamers", [Section("Jouer",self.play),info,Section("Quit",self.quit,"",(255,50,50),(255,100,100))],"logo")
+        menu = Section("Space Gamers", [Section("Jouer",self.play),touches,info,Section("Quit",self.quit,"",(255,50,50),(255,100,100))],"logo")
         info.action.append(menu)
+        touches.action.append(menu)
         self.active_section = menu
         self.__mainLoop()
+    
+    def setconfig_zqsd(self):
+        self.config["INPUT"]["left"] = "K_d"
+        self.config["INPUT"]["right"] = "K_q"
+        self.config["INPUT"]["up"] = "K_z"
+        self.config["INPUT"]["down"] = "K_s"
+        self.config["INPUT"]["fire"] = "K_MOUSE"
+        save_config(self.config)
+    
+    def setconfig_fleches(self):
+        self.config["INPUT"]["left"] = "K_LEFT"
+        self.config["INPUT"]["right"] = "K_RIGHT"
+        self.config["INPUT"]["up"] = "K_UP"
+        self.config["INPUT"]["down"] = "K_DOWN"
+        self.config["INPUT"]["fire"] = "K_SPACE"
+        save_config(self.config)
+        
+        
 
     def play(self):
         logging.info("Setup main menu")
         self.valid_menu_sound.play()
         pygame.time.wait(20)
         pygame.mouse.set_cursor(*pygame.cursors.arrow)
-        game = jeu()
+        game = jeu(self.config)
         Gui = PyGameGUI(game)
         Gui.start(self.screen)
 
@@ -131,6 +156,7 @@ ShowHitbox: si "T", affiche
         desc_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 22)
         selected = 0
         ret = 0
+        self.ismousedown = False
 
         #Tant que la boucle principale est en cours d'excution
         while self.running:
@@ -146,7 +172,10 @@ ShowHitbox: si "T", affiche
                 main = self.logo
                 self.screen.blit(main,(50,50))
 
-            pressed = pygame.key.get_pressed()
+            
+            self.ismousedown = pygame.mouse.get_pressed() == 1
+            pressed = list(pygame.key.get_pressed())
+            pressed.append(self.ismousedown)
             press = False
 
             for event in pygame.event.get():
@@ -162,12 +191,12 @@ ShowHitbox: si "T", affiche
 
 
                 if event.type == pygame.KEYUP:
-                    if pressed[self.touches[self.input_config["left"]]]: selected -= 1
-                    elif pressed[self.touches[self.input_config["right"]]]: selected += 1
-                    elif pressed[self.touches[self.input_config["up"]]]: selected -= 1
-                    elif pressed[self.touches[self.input_config["down"]]]: selected += 1
+                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected -= 1
+                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected += 1
+                    elif pressed[self.touches[self.input_config["up"]]] or pressed[self.touches["K_UP"]]: selected -= 1
+                    elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
                     selected %= len(self.active_section.action)
-                    if pressed[self.touches[self.input_config["fire"]]]: press = True
+                    if pressed[self.touches[self.input_config["fire"]]] or pressed[self.touches["K_SPACE"]] or pressed[self.touches["K_RETURN"]]: press = True
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     press = True
                     pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
