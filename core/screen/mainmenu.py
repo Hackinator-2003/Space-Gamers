@@ -18,7 +18,7 @@ class Section(): # Type de sauvegarde de donné pour structuré le menu
         self.description = description
         self.hold_color = hold_color
         self.parent = None
-        
+
 
 
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
@@ -36,7 +36,7 @@ class MainMenuPygameGui():
     Methodes :
 
     """
-    
+
 
 
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
@@ -109,7 +109,7 @@ ShowHitbox: si "T", affiche
         touches.action.append(menu)
         self.active_section = menu
         self.__mainLoop()
-    
+
     def setconfig_zqsd(self):
         self.config["INPUT"]["left"] = "K_d"
         self.config["INPUT"]["right"] = "K_q"
@@ -117,7 +117,7 @@ ShowHitbox: si "T", affiche
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
         save_config(self.config)
-    
+
     def setconfig_fleches(self):
         self.config["INPUT"]["left"] = "K_LEFT"
         self.config["INPUT"]["right"] = "K_RIGHT"
@@ -125,8 +125,8 @@ ShowHitbox: si "T", affiche
         self.config["INPUT"]["down"] = "K_DOWN"
         self.config["INPUT"]["fire"] = "K_SPACE"
         save_config(self.config)
-        
-        
+
+
 
     def play(self):
         logging.info("Setup main menu")
@@ -152,7 +152,7 @@ ShowHitbox: si "T", affiche
         exec_= 0
         time = 0
         title_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 60)
-        text_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 30)
+        text_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 30)
         desc_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 22)
         selected = 0
         ret = 0
@@ -172,7 +172,7 @@ ShowHitbox: si "T", affiche
                 main = self.logo
                 self.screen.blit(main,(50,50))
 
-            
+
             self.ismousedown = pygame.mouse.get_pressed() == 1
             pressed = list(pygame.key.get_pressed())
             pressed.append(self.ismousedown)
@@ -184,7 +184,7 @@ ShowHitbox: si "T", affiche
                     pos = pygame.mouse.get_pos()
 
                     if isinstance(self.active_section.action,list):
-                        if 40 <= pos[0] <= self.size[0]-40: 
+                        if 40 <= pos[0] <= self.size[0]-40:
                             for x,value in enumerate(self.active_section.action):
                                 if x*60+300 <= pos[1] <= x*60+355: selected = x
 
@@ -200,10 +200,10 @@ ShowHitbox: si "T", affiche
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     press = True
                     pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
-            
-            
+
+
             if isinstance(self.active_section.action,list):
-                
+
                 for x,value in enumerate(self.active_section.action):
                     if selected == x: pygame.draw.rect(self.screen,(255,255,100),(38,x*60+300-2,self.size[0]-76,60-1))
                     pygame.draw.rect(self.screen,(20,20,20,200),(40,x*60+300,self.size[0]-80,60-5))
@@ -229,7 +229,7 @@ ShowHitbox: si "T", affiche
                 for x,value in enumerate(self.active_section.description.split("\n")):
                     ok = desc_font.render(value, True, (255,255,255))
                     self.screen.blit(ok,(40,x*30+155))
-                
+
                 pygame.draw.rect(self.screen,(255,255,100),(38,598,self.size[0]-76,64))
                 pygame.draw.rect(self.screen,(20,20,20,200),(40,600,self.size[0]-80,60))
                 ok = text_font.render("Retour", True, (255,50,50))
