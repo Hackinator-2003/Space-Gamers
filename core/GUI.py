@@ -97,6 +97,7 @@ class PygameGui():
         # affichage du joueur
         self.screen.blit(self.game.player.vaisceau,(self.game.player.pos[0]-self.game.player.vaisceau.get_rect().width//2,self.game.player.pos[1]-self.game.player.vaisceau.get_rect().height//2))
         fire = pygame.image.load("core/rsc/img/tire.png")
+        fire_round =  pygame.image.load("core/rsc/img/bullet2.png")
 
         if self.gui_config["ShowHitbox"] == "T":
             rad = self.game.player.hitbox_rad
@@ -113,7 +114,7 @@ class PygameGui():
         # affichange des missiles des ennemies
         for bullet in self.game.en_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-            elif bullet.type_ == "downleft": pass
+            elif bullet.type_ == "downleft" or bullet.type_ == "downright" : self.screen.blit(fire_round,(bullet.pos[0]-fire_round.get_rect().width//2,bullet.pos[1]-fire_round.get_rect().height//2))
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
 
             if self.gui_config["ShowHitbox"] == "T":

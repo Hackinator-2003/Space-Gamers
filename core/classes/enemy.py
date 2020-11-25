@@ -23,6 +23,8 @@ class Enemy():
         if self.fire_timer >= self.fire_speed:
             self.fire_timer = 0
             self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"down",300))
+            self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"downleft",300))
+            self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"downright",300))
 
     def __del__(self):
         if self.type_ == "normal":self.game.player.score+=100
