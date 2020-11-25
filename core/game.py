@@ -1,4 +1,5 @@
 ﻿import logging
+from sys import platform
 from core.classes.player import Player
 from core.classes.Boss import Boss
 from core.classes.enemy import Enemy
@@ -59,6 +60,8 @@ class Game():
             if enemy.pv <= 0: del self.enemys[i]
 
     def update(self,dt):
+
+        if self.player.pv <= 0: return
 
         self.general_timer += dt
         for x in self.timers.keys():

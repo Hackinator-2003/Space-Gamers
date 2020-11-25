@@ -144,6 +144,8 @@ class PygameGui():
         elif self.game.player.pv<=0: point_de_vie = pygame.image.load("core/rsc/img/game-over.png")
         self.screen.blit(point_de_vie,(0,0))
 
+        
+
         # flip
         pygame.display.flip()
 

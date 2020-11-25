@@ -152,8 +152,8 @@ ShowHitbox: si "T", affiche
         exec_= 0
         time = 0
         title_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
-        text_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 45)
-        desc_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 22)
+        text_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 45)
+        desc_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 22)
         selected = 0
         ret = 0
         self.ismousedown = False
