@@ -57,8 +57,10 @@ class MainMenuPygameGui():
         pygame.mixer.music.play(loops=-1)
         pygame.mixer.music.set_volume(0.3)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
-        logging.debug("Creating sections")
         self.touches["K_MOUSE"] = len(self.touches.keys())
+        logging.debug("pygame.__dict__:"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()]))
+        logging.debug("touches={"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()])+"}")
+        logging.debug("Creating sections")
 
         info_credits = Section("Credits","texte","""Ce jeu à été réaliser par Cyprien
 Bourotte, Aurélien Kittel et Marc Guillemot.
@@ -114,7 +116,7 @@ ShowHitbox: si "T", affiche
     def setconfig_zqsd(self):
         self.config["INPUT"]["left"] = "K_d"
         self.config["INPUT"]["right"] = "K_q"
-        self.config["INPUT"]["up"] = "K_z"
+        self.config["INPUT"]["up"] = "K_w"
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
         save_config(self.config)
@@ -177,6 +179,7 @@ ShowHitbox: si "T", affiche
             self.ismousedown = pygame.mouse.get_pressed() == 1
             pressed = list(pygame.key.get_pressed())
             pressed.append(self.ismousedown)
+            #logging.debug("pressed len="+str(len(pressed))+" pressed="+str(pressed))
             press = False
 
             for event in pygame.event.get():
@@ -192,7 +195,11 @@ ShowHitbox: si "T", affiche
 
 
                 if event.type == pygame.KEYUP:
-                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected -= 1
+                    ok2 = self.input_config["left"]
+                    ok = self.touches[ok2]
+                    if pressed[ok] or pressed[
+                            self.touches["K_LEFT"]
+                            ]: selected -= 1
                     elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected += 1
                     elif pressed[self.touches[self.input_config["up"]]] or pressed[self.touches["K_UP"]]: selected -= 1
                     elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
@@ -244,6 +251,7 @@ ShowHitbox: si "T", affiche
 
             # flip
             pygame.display.flip()
+            pygame.event.pump()
 
     # Fermeture de la fenêtre
     def quit(self):
