@@ -82,7 +82,7 @@ class PygameGui():
             self.game.update(self.dt)
 
             # appel de self.draw()
-            if self.game.player.pc > 0: 
+            if self.game.player.pv > 0: 
                 self.draw()
             else: 
                 self.drawGameOver()
@@ -174,7 +174,7 @@ class PygameGui():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:self.quit();break
 
-        if self.game.player.pc <= 0: return
+        if self.game.player.pv <= 0: return
         # mpos = pygame.mouse.get_pos()
         self.ismousedown = pygame.mouse.get_pressed() == 1
 
