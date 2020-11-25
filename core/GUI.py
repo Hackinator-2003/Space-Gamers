@@ -82,11 +82,30 @@ class PygameGui():
             self.game.update(self.dt)
 
             # appel de self.draw()
-            self.draw()
+            if self.game.player.pc > 0: 
+                self.draw()
+            else: 
+                self.drawGameOver()
 
 
 
 
+    def drawGameOver(self):
+
+        game_over = pygame.image.load("core/rsc/img/game-over.png")
+        self.screen.blit(game_over,(0,0))
+
+        
+        # affichage du score
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
+        texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
+        self.screen.blit(texte,(texte_rect[0],10))
+
+        
+
+        # flip
+        pygame.display.flip()
 
 
 
@@ -155,6 +174,7 @@ class PygameGui():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:self.quit();break
 
+        if self.game.player.pc <= 0: return
         # mpos = pygame.mouse.get_pos()
         self.ismousedown = pygame.mouse.get_pressed() == 1
 
