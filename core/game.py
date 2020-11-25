@@ -20,7 +20,8 @@ class Game():
         self.en_bullets = []
         self.general_timer = 0
         self.timers = {
-            "n_en_basic":[0,3] # new enemy
+            "en_basic":[0,3], # new enemy
+            "boss":[0,10]
         }
 
 
@@ -67,18 +68,15 @@ class Game():
         for x in self.timers.keys():
             self.timers[x][0] += dt
 
-        if self.timers["n_en_basic"][0] >= self.timers["n_en_basic"][1]:
-            self.timers["n_en_basic"][0] = 0
-            self.timers["n_en_basic"][1] * 0.7
+        if self.timers["en_basic"][0] >= self.timers["en_basic"][1]:
+            self.timers["en_basic"][0] = 0
+            self.timers["en_basic"][1] * 0.7
             self.enemys.append(Enemy(self,"normal",[randint(20,530),0]))
 
 
-        if round(self.general_timer)==10:
-            for i,enemy in enumerate(self.enemys):
-                if enemy.type_=="normal":
-                    del self.enemys[i]
-            if len(self.enemys)==0:
-                self.enemys.append(Boss(self,"boss",[250,0]))
+        if self.timers["boss"][0] >= self.timers["boss"][1]:
+            self.timers["boss"][0] = 0
+            self.enemys.append(Boss(self,[250,0]))
 
 
 
