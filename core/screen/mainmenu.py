@@ -151,9 +151,9 @@ ShowHitbox: si "T", affiche
         clock = pygame.time.Clock()
         exec_= 0
         time = 0
-        title_font = pygame.font.Font('core/rsc/fonts/korona.ttf', 60)
+        title_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
         text_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 45)
-        desc_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 22)
+        desc_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 22)
         selected = 0
         ret = 0
         self.ismousedown = False

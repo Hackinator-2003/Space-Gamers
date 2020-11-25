@@ -113,6 +113,7 @@ class PygameGui():
         # affichange des missiles des ennemies
         for bullet in self.game.en_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
+            elif bullet.type_ == "downleft": pass
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
 
             if self.gui_config["ShowHitbox"] == "T":
@@ -131,8 +132,8 @@ class PygameGui():
 
 
         # affichage du score
-        police = pygame.font.Font(None,55)
-        texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#FFFFFF"))
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
 
