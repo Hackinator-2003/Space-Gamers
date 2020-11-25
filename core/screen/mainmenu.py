@@ -95,8 +95,8 @@ ShowHitbox: si "T", affiche
             les hitboxes
 """)
         touches = Section("Touches",
-            [Section("ZQSD +Click", self.setconfig_zqsd),
-             Section("<>^v +Espace", self.setconfig_fleches)]
+            [Section("<touches1.jpg", self.setconfig_zqsd),
+             Section("<touches2.jpg", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
         info_opt = Section("Options", [info_opt_inp,info_opt_gui])
@@ -207,10 +207,14 @@ ShowHitbox: si "T", affiche
                 for x,value in enumerate(self.active_section.action):
                     if selected == x: pygame.draw.rect(self.screen,(255,255,100),(38,x*60+300-2,self.size[0]-76,60-1))
                     pygame.draw.rect(self.screen,(20,20,20,200),(40,x*60+300,self.size[0]-80,60-5))
-                    ok = text_font.render(value.text,True, value.color)
-                    if value.text == self.active_section.parent:
-                        ok = text_font.render("Retour",True, (255,50,50))
-                    self.screen.blit(ok,(60,x*60+300))
+                    if value.text.startswith("<"):
+                        img = pygame.image.load("core/rsc/img/"+"<".join(value.text.split("<")[1:]))
+                        self.screen.blit(img, (40,x*60+300))
+                    else:
+                        if value.text == self.active_section.parent:
+                            ok = text_font.render("Retour",True, (255,50,50))
+                        else:ok = text_font.render(value.text,True, value.color)
+                        self.screen.blit(ok,(60,x*60+300))
 
 
                 if press:
