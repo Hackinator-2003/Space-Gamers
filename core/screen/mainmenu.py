@@ -96,8 +96,8 @@ ShowHitbox: si "T", affiche
             les hitboxes
 """)
         touches = Section("Touches",
-            [Section("<touches1.jpg", self.setconfig_zqsd),
-             Section("<touches2.jpg", self.setconfig_fleches)]
+            [Section("<touches1.png", self.setconfig_zqsd),
+             Section("<touches2.png", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
         info_opt = Section("Options", [info_opt_inp,info_opt_gui])
