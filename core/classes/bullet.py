@@ -1,22 +1,22 @@
 ﻿
 class Bullet():
 
+    degat=(1,3) #on pourrait augmenter les degats avec le temps ?
 
-    def __init__(self,handler,position,type_,speed=100):
+    def __init__(self,position,type_,speed=300):
         self.pos=position
-        self.handler = handler # à qui appratiens le rpojectile (au joueur ou aux ennemys)
         self.type_ = type_ # type of the projectile (mouvement différents etc)
         self.speed = speed
 
-
-    def move(self,dt):
+    def move(self,dt): 
         if self.type_ == "up":self.pos[1] -= self.speed*dt
         if self.type_ == "down":self.pos[1] += self.speed*dt
+        if self.type_ == "downleft":
+            self.pos[1] -= self.speed*dt*0.8
+            self.pos[0] -= self.speed*dt*0.2 
+        if self.type_ == "downright":
+            self.pos[1] -= self.speed*dt*0.8
+            self.pos[0] -= self.speed*dt*0.2 
 
     def update(self,dt):
         pass
-
-    def dead(self,liste):
-        for i,x in enumerate(liste):
-            if x == self:
-                del liste[i]
