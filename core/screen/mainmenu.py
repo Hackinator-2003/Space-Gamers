@@ -55,6 +55,7 @@ class MainMenuPygameGui():
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
         pygame.mixer.music.load("core/rsc/sounds/music.mp3")
         pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.set_volume(0.3)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         logging.debug("Creating sections")
         self.touches["K_MOUSE"] = len(self.touches.keys())
@@ -96,7 +97,7 @@ ShowHitbox: si "T", affiche
 """)
         touches = Section("Touches",
             [Section("ZQSD +Click", self.setconfig_zqsd),
-             Section("<>^v +Espace", self.setconfig_fleches)]
+             Section("< Ʌ V > + Espace", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
         info_opt = Section("Options", [info_opt_inp,info_opt_gui])
