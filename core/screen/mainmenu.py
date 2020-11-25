@@ -96,7 +96,7 @@ ShowHitbox: si "T", affiche
 """)
         touches = Section("Touches",
             [Section("ZQSD +Click", self.setconfig_zqsd),
-             Section("←↑→↓ +Espace", self.setconfig_fleches)]
+             Section("<>^v +Espace", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
         info_opt = Section("Options", [info_opt_inp,info_opt_gui])
@@ -151,9 +151,9 @@ ShowHitbox: si "T", affiche
         clock = pygame.time.Clock()
         exec_= 0
         time = 0
-        title_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
-        text_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 45)
-        desc_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 22)
+        title_font = pygame.font.Font('core/rsc/fonts/Game.ttf', 60)
+        text_font = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 30)
+        desc_font = pygame.font.Font('core/rsc/fonts/syne.ttf', 22)
         selected = 0
         ret = 0
         self.ismousedown = False
