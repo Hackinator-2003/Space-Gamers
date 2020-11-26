@@ -102,7 +102,7 @@ class PygameGui():
 
 
         # affichage du score
-        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 20)
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
@@ -157,7 +157,7 @@ class PygameGui():
 
 
         # affichage du score
-        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 30)
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
