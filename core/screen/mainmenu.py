@@ -63,7 +63,8 @@ class MainMenuPygameGui():
         logging.debug("Creating sections")
 
         info_credits = Section("Credits","texte","""Ce jeu à été réaliser par Cyprien
-Bourotte, Aurélien Kittel et Marc Guillemot.
+Bourotte, Aurélien Kittel et Marc
+Guillemot.
 
 
 C'est un jeu simpa, avec des rockets
