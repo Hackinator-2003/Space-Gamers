@@ -1,7 +1,6 @@
 ﻿import logging
 from sys import platform
 from core.classes.player import Player
-from core.classes.Boss import Boss
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
 from core.configparser import get_config
@@ -21,7 +20,7 @@ class Game():
         self.general_timer = 0
         self.timers = {
             "en_basic":[0,3], # new enemy
-            "boss":[0,10]
+            "boss":[0,30]
         }
 
 
@@ -76,7 +75,7 @@ class Game():
 
         if self.timers["boss"][0] >= self.timers["boss"][1]:
             self.timers["boss"][0] = 0
-            self.enemys.append(Boss(self,[250,0]))
+            self.enemys.append(Enemy(self,"boss",[250,0],15,1,40))
 
 
 
