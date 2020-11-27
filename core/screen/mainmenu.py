@@ -57,8 +57,10 @@ class MainMenuPygameGui():
         pygame.mixer.music.play(loops=-1)
         pygame.mixer.music.set_volume(0.3)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
-        logging.debug("Creating sections")
         self.touches["K_MOUSE"] = len(self.touches.keys())
+        logging.debug("pygame.__dict__:"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()]))
+        logging.debug("touches={"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()])+"}")
+        logging.debug("Creating sections")
 
         info_credits = Section("Credits","texte","""Ce jeu à été réaliser par Cyprien
 Bourotte, Aurélien Kittel et Marc
@@ -114,8 +116,8 @@ ShowHitbox: si "T", affiche
 
     def setconfig_zqsd(self):
         self.config["INPUT"]["left"] = "K_d"
-        self.config["INPUT"]["right"] = "K_q"
-        self.config["INPUT"]["up"] = "K_z"
+        self.config["INPUT"]["right"] = "K_a"
+        self.config["INPUT"]["up"] = "K_w"
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
         save_config(self.config)
@@ -175,9 +177,7 @@ ShowHitbox: si "T", affiche
                 self.screen.blit(main,(50,50))
 
 
-            self.ismousedown = pygame.mouse.get_pressed() == 1
-            pressed = list(pygame.key.get_pressed())
-            pressed.append(self.ismousedown)
+  
             press = False
 
             for event in pygame.event.get():
@@ -190,18 +190,23 @@ ShowHitbox: si "T", affiche
                             for x,value in enumerate(self.active_section.action):
                                 if x*60+300 <= pos[1] <= x*60+355: selected = x
 
-
-
-                if event.type == pygame.KEYUP:
-                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected -= 1
-                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected += 1
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    press = True
+                    pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
+                
+                if event.type == pygame.KEYDOWN:
+                    self.ismousedown = pygame.mouse.get_pressed() == 1
+                    pressed = list(pygame.key.get_pressed())
+                    pressed.append(self.ismousedown)
+                    #logging.debug("pressed len="+str(len(pressed))+" pressed="+str(pressed))
+                    logging.debug("Button down event!")
+                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected += 1
+                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected -= 1
                     elif pressed[self.touches[self.input_config["up"]]] or pressed[self.touches["K_UP"]]: selected -= 1
                     elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
                     selected %= len(self.active_section.action)
                     if pressed[self.touches[self.input_config["fire"]]] or pressed[self.touches["K_SPACE"]] or pressed[self.touches["K_RETURN"]]: press = True
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    press = True
-                    pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
+            
 
 
             if isinstance(self.active_section.action,list):
@@ -245,6 +250,7 @@ ShowHitbox: si "T", affiche
 
             # flip
             pygame.display.flip()
+            pygame.event.pump()
 
     # Fermeture de la fenêtre
     def quit(self):

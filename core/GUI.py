@@ -2,6 +2,8 @@
 ################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
 import logging
 import pygame
+import random
+import os
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
 from core.classes.Boss import Boss
@@ -40,10 +42,13 @@ class PygameGui():
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         self.touches["K_MOUSE"] = len(self.touches.keys())
+        images_path = os.listdir("core/rsc/img/enemies")
+        self.images=[]
+        for loop in range(len(images_path)):
+            self.images.append("core/rsc/img/enemies/"+images_path[loop])
         logging.debug("init Pygame...")
         pygame.init()
         self.dt = 0
-
 
 
 
@@ -82,9 +87,9 @@ class PygameGui():
             self.game.update(self.dt)
 
             # appel de self.draw()
-            if self.game.player.pv > 0: 
+            if self.game.player.pv > 0:
                 self.draw()
-            else: 
+            else:
                 self.drawGameOver()
 
 
@@ -95,14 +100,14 @@ class PygameGui():
         game_over = pygame.image.load("core/rsc/img/game-over.png")
         self.screen.blit(game_over,(0,0))
 
-        
+
         # affichage du score
-        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 20)
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
 
-        
+
 
         # flip
         pygame.display.flip()
@@ -145,14 +150,14 @@ class PygameGui():
             if self.gui_config["ShowHitbox"] == "T":
                 rad = enemy.hitbox_rad
                 pygame.draw.rect(self.screen, (0,255,0), (enemy.pos[0]-rad,enemy.pos[1]-rad,rad*2,rad*2),1)
-            if enemy.type_ == "normal": look = pygame.image.load("core/rsc/img/placeholder.png")
-            elif enemy.type_ == "boss": look = pygame.image.load("core/rsc/img/red-enemy.png")
-            else: look = pygame.image.load("core/rsc/img/placeholder.png")
+            if enemy.type_ == "normal": look =pygame.image.load(random.choice(self.images))
+            elif enemy.type_ == "boss": look = pygame.image.load("core/rsc/img/boss.png")
+            else: look = pygame.image.load(random.choice(self.images))
             self.screen.blit(look,(enemy.pos[0]-look.get_rect().width//2,enemy.pos[1]-look.get_rect().height//2))
 
 
         # affichage du score
-        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 30)
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
@@ -164,13 +169,13 @@ class PygameGui():
         elif self.game.player.pv<=0: point_de_vie = pygame.image.load("core/rsc/img/game-over.png")
         self.screen.blit(point_de_vie,(0,0))
 
-        
+
 
         # flip
         pygame.display.flip()
 
     def manageEvents(self):
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:self.quit();break
 

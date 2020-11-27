@@ -1,3 +1,6 @@
+# vscode config 
+.vscode/*
+
 # logs
 core/log
 # Byte-compiled / optimized / DLL files
