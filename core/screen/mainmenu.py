@@ -53,9 +53,9 @@ class MainMenuPygameGui():
         self.logo=pygame.image.load("core/rsc/img/logo.png")
         self.input_config = self.config["INPUT"]
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
-        pygame.mixer.music.load("core/rsc/sounds/music.mp3")
+        pygame.mixer.music.load("core/rsc/sounds/menu_music.mp3")
         pygame.mixer.music.play(loops=-1)
-        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.set_volume(0.5)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         self.touches["K_MOUSE"] = len(self.touches.keys())
         logging.debug("pygame.__dict__:"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()]))
@@ -63,7 +63,8 @@ class MainMenuPygameGui():
         logging.debug("Creating sections")
 
         info_credits = Section("Credits","texte","""Ce jeu à été réaliser par Cyprien
-Bourotte, Aurélien Kittel et Marc Guillemot.
+Bourotte, Aurélien Kittel et Marc
+Guillemot.
 
 
 C'est un jeu simpa, avec des rockets
@@ -177,7 +178,7 @@ ShowHitbox: si "T", affiche
                 self.screen.blit(main,(50,50))
 
 
-  
+
             press = False
 
             for event in pygame.event.get():
@@ -193,7 +194,7 @@ ShowHitbox: si "T", affiche
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     press = True
                     pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
-                
+
                 if event.type == pygame.KEYDOWN:
                     self.ismousedown = pygame.mouse.get_pressed() == 1
                     pressed = list(pygame.key.get_pressed())
@@ -206,7 +207,7 @@ ShowHitbox: si "T", affiche
                     elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
                     selected %= len(self.active_section.action)
                     if pressed[self.touches[self.input_config["fire"]]] or pressed[self.touches["K_SPACE"]] or pressed[self.touches["K_RETURN"]]: press = True
-            
+
 
 
             if isinstance(self.active_section.action,list):
