@@ -1,6 +1,8 @@
 ﻿from core.game import Game
 from core.screen.mainmenu import MainMenuPygameGui as pg
 
+from core.screen.mainmenu import Section
+
 def check_pygame_version():
     import logging
     import pygame.version as p

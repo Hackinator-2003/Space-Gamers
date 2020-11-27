@@ -6,7 +6,6 @@ import random
 import os
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
-from core.classes.Boss import Boss
 import sys
 #######################################################################################################################################
 
