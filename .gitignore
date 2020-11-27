@@ -129,3 +129,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 conf.ini
+conf.ini
+*.ini
