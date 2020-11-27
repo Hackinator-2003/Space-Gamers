@@ -53,16 +53,17 @@ class MainMenuPygameGui():
         logging.debug("touches={"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()])+"}")
         logging.debug("Creating sections")
 
-        info_credits = Section("Credits","texte","""Ce jeu à été réaliser par Cyprien
+        info_credits = Section("Credits","texte","""Ce jeu a été réalisé par Cyprien
 Bourotte, Aurélien Kittel et Marc
 Guillemot.
 
 
-C'est un jeu simpa, avec des rockets
-ou l'on tire sur des enemies.
+C'est un jeu sympa, avec des vaisseaux
+où l'on tire sur des ennemis.
 
 Il a été réalisé dans le cadre d'un
-Projet au lycée en classe de NSI""")
+Projet Pygame en classe de Terminale
+NSI à Saint-Dominique.""")
         info_pts = Section("Points","texte","""Comment sont comptabiliser les points ?
 
 Tirer             : -1   pt
@@ -70,7 +71,7 @@ Perdre une vie    : -200 pts
 Tuer un rouge     : +100 pts
 Tirer sur un rouge: +10  pts
 """)
-        info_opt_inp = Section("Inputs","texte","""Modifier vos touches dans conf.ini
+        info_opt_inp = Section("Options","texte","""Modifier vos touches dans conf.ini
 
 Dans la section "INPUT", en utili-
 sant les noms de touche pygame +
@@ -84,23 +85,14 @@ Liste des clées:
  - fire  : tirer
 """)
 
-        info_opt_gui = Section("Graphique","texte","""Modifier vos options dans conf.ini
-
-Dans la section "GUI" vous avez:
-ShowHitbox: si "T", affiche
-            les hitboxes
-""")
         touches = Section("Touches",
             [Section("<touches1.png", self.setconfig_zqsd),
              Section("<touches2.png", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
-        info_opt = Section("Options", [info_opt_inp,info_opt_gui])
-        info_opt.parent = "Information"
-        info = Section("Information", [info_pts,info_opt,info_credits])
+        info = Section("Information", [info_pts,info_credits,info_opt_inp])
         info.parent = "Space Gamers"
-        info_opt.action.append(info)
-        menu = Section("Space Gamers", [Section("Jouer",self.play),touches,info,Section("Quit",self.quit,"",(255,50,50),(255,100,100))],"logo")
+        menu = Section("Space Gamers", [Section("Jouer",self.play),touches,info,Section("Quitter",self.quit,"",(255,50,50),(255,100,100))],"logo")
         info.action.append(menu)
         touches.action.append(menu)
         self.active_section = menu
@@ -196,8 +188,8 @@ ShowHitbox: si "T", affiche
                     pressed.append(self.ismousedown)
                     #logging.debug("pressed len="+str(len(pressed))+" pressed="+str(pressed))
                     logging.debug("Button down event!")
-                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected += 1
-                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected -= 1
+                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected -= 1
+                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected += 1
                     elif pressed[self.touches[self.input_config["up"]]] or pressed[self.touches["K_UP"]]: selected -= 1
                     elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
                     selected %= len(self.active_section.action)
