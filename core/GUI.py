@@ -108,6 +108,7 @@ class PygameGui():
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
         pygame.mouse.set_cursor(*pygame.cursors.arrow)
+        menu = Section("Space Gamers", [Section("Jouer",self.running),Section("Quit",self.quit,"",(255,50,50),(255,100,100))],"logo")
 
 
 
