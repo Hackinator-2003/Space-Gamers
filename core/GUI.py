@@ -41,7 +41,7 @@ class PygameGui():
         self.size = size
         self.fond = pygame.image.load("core/rsc/img/background.jpg")
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
-        self.touches["K_MOUSE"] = len(self.touches.keys())
+        self.touches["K_MOUSE"] = len(list(pygame.key.get_pressed()))
         images_path = os.listdir("core/rsc/img/enemies")
         self.images=[]
         for loop in range(len(images_path)):
@@ -181,7 +181,8 @@ class PygameGui():
 
         if self.game.player.pv <= 0: return
         # mpos = pygame.mouse.get_pos()
-        self.ismousedown = pygame.mouse.get_pressed() == 1
+        self.ismousedown = pygame.mouse.get_pressed()[0] == 1
+        logging.debug(pygame.mouse.get_pressed()) 
 
         pressed = list(pygame.key.get_pressed())
         pressed.append(self.ismousedown)

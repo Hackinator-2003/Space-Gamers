@@ -82,7 +82,8 @@ Tirer sur un rouge: +10  pts
         info_opt_inp = Section("Inputs","texte","""Modifier vos touches dans conf.ini
 
 Dans la section "INPUT", en utili-
-sant les noms de touche pygame.
+sant les noms de touche pygame +
+K_MOUSE pour click souris.
 
 Liste des clées:
  - left  : bouger à gauche
@@ -115,8 +116,8 @@ ShowHitbox: si "T", affiche
         self.__mainLoop()
 
     def setconfig_zqsd(self):
-        self.config["INPUT"]["left"] = "K_d"
-        self.config["INPUT"]["right"] = "K_a"
+        self.config["INPUT"]["left"] = "K_a"
+        self.config["INPUT"]["right"] = "K_d"
         self.config["INPUT"]["up"] = "K_w"
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
