@@ -7,7 +7,7 @@ import os
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
 from core.classes.Boss import Boss
-
+from core.screen.section import Section
 import sys
 #######################################################################################################################################
 
@@ -185,7 +185,7 @@ class PygameGui():
         if self.game.player.pv <= 0: return
         # mpos = pygame.mouse.get_pos()
         self.ismousedown = pygame.mouse.get_pressed()[0] == 1
-        logging.debug(pygame.mouse.get_pressed()) 
+        logging.debug(pygame.mouse.get_pressed())
 
         pressed = list(pygame.key.get_pressed())
         pressed.append(self.ismousedown)

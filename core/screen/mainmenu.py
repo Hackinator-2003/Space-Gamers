@@ -5,19 +5,10 @@ from core.game import Game as jeu
 from core.GUI import PygameGui as PyGameGUI
 import sys
 from core.configparser import get_config, save_config
+from core.screen.section import Section
 #######################################################################################################################################
 
 # pygame.init() pas besoin car initialisé dans menu.start()
-
-class Section(): # Type de sauvegarde de donné pour structuré le menu
-
-    def __init__(self,text,action,description="",color=(100,100,100),hold_color=(200,200,200)):
-        self.text = text
-        self.action = action
-        self.color = color
-        self.description = description
-        self.hold_color = hold_color
-        self.parent = None
 
 
 
