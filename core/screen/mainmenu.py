@@ -115,7 +115,7 @@ ShowHitbox: si "T", affiche
 
     def setconfig_zqsd(self):
         self.config["INPUT"]["left"] = "K_d"
-        self.config["INPUT"]["right"] = "K_q"
+        self.config["INPUT"]["right"] = "K_a"
         self.config["INPUT"]["up"] = "K_w"
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
@@ -176,10 +176,7 @@ ShowHitbox: si "T", affiche
                 self.screen.blit(main,(50,50))
 
 
-            self.ismousedown = pygame.mouse.get_pressed() == 1
-            pressed = list(pygame.key.get_pressed())
-            pressed.append(self.ismousedown)
-            #logging.debug("pressed len="+str(len(pressed))+" pressed="+str(pressed))
+  
             press = False
 
             for event in pygame.event.get():
@@ -192,22 +189,23 @@ ShowHitbox: si "T", affiche
                             for x,value in enumerate(self.active_section.action):
                                 if x*60+300 <= pos[1] <= x*60+355: selected = x
 
-
-
-                if event.type == pygame.KEYUP:
-                    ok2 = self.input_config["left"]
-                    ok = self.touches[ok2]
-                    if pressed[ok] or pressed[
-                            self.touches["K_LEFT"]
-                            ]: selected -= 1
-                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected += 1
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    press = True
+                    pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
+                
+                if event.type == pygame.KEYDOWN:
+                    self.ismousedown = pygame.mouse.get_pressed() == 1
+                    pressed = list(pygame.key.get_pressed())
+                    pressed.append(self.ismousedown)
+                    #logging.debug("pressed len="+str(len(pressed))+" pressed="+str(pressed))
+                    logging.debug("Button down event!")
+                    if pressed[self.touches[self.input_config["left"]]] or pressed[self.touches["K_LEFT"]]: selected += 1
+                    elif pressed[self.touches[self.input_config["right"]]] or pressed[self.touches["K_RIGHT"]]: selected -= 1
                     elif pressed[self.touches[self.input_config["up"]]] or pressed[self.touches["K_UP"]]: selected -= 1
                     elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
                     selected %= len(self.active_section.action)
                     if pressed[self.touches[self.input_config["fire"]]] or pressed[self.touches["K_SPACE"]] or pressed[self.touches["K_RETURN"]]: press = True
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    press = True
-                    pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
+            
 
 
             if isinstance(self.active_section.action,list):
