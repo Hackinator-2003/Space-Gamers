@@ -53,7 +53,7 @@ class MainMenuPygameGui():
         self.logo=pygame.image.load("core/rsc/img/logo.png")
         self.input_config = self.config["INPUT"]
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
-        pygame.mixer.music.load("core/rsc/sounds/music.mp3")
+        pygame.mixer.music.load("core/rsc/sounds/menu_music.mp3")
         pygame.mixer.music.play(loops=-1)
         pygame.mixer.music.set_volume(0.3)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
@@ -82,7 +82,8 @@ Tirer sur un rouge: +10  pts
         info_opt_inp = Section("Inputs","texte","""Modifier vos touches dans conf.ini
 
 Dans la section "INPUT", en utili-
-sant les noms de touche pygame.
+sant les noms de touche pygame +
+K_MOUSE pour click souris.
 
 Liste des clées:
  - left  : bouger à gauche
@@ -115,8 +116,8 @@ ShowHitbox: si "T", affiche
         self.__mainLoop()
 
     def setconfig_zqsd(self):
-        self.config["INPUT"]["left"] = "K_d"
-        self.config["INPUT"]["right"] = "K_a"
+        self.config["INPUT"]["left"] = "K_a"
+        self.config["INPUT"]["right"] = "K_d"
         self.config["INPUT"]["up"] = "K_w"
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
@@ -136,6 +137,10 @@ ShowHitbox: si "T", affiche
         logging.info("Setup main menu")
         self.valid_menu_sound.play()
         pygame.time.wait(20)
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load('core/rsc/sounds/music.mp3')
+        pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.set_volume(0.3)
         pygame.mouse.set_cursor(*pygame.cursors.arrow)
         game = jeu(self.config)
         Gui = PyGameGUI(game)
@@ -177,7 +182,7 @@ ShowHitbox: si "T", affiche
                 self.screen.blit(main,(50,50))
 
 
-  
+
             press = False
 
             for event in pygame.event.get():
@@ -193,7 +198,7 @@ ShowHitbox: si "T", affiche
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     press = True
                     pass # pressed[self.touches[self.input_config["fire"]]] = 1 # simule le clique de souris
-                
+
                 if event.type == pygame.KEYDOWN:
                     self.ismousedown = pygame.mouse.get_pressed() == 1
                     pressed = list(pygame.key.get_pressed())
@@ -206,7 +211,7 @@ ShowHitbox: si "T", affiche
                     elif pressed[self.touches[self.input_config["down"]] or pressed[self.touches["K_DOWN"]]]: selected += 1
                     selected %= len(self.active_section.action)
                     if pressed[self.touches[self.input_config["fire"]]] or pressed[self.touches["K_SPACE"]] or pressed[self.touches["K_RETURN"]]: press = True
-            
+
 
 
             if isinstance(self.active_section.action,list):
