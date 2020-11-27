@@ -5,19 +5,10 @@ from core.game import Game as jeu
 from core.GUI import PygameGui as PyGameGUI
 import sys
 from core.configparser import get_config, save_config
+from core.screen.section import Section
 #######################################################################################################################################
 
 # pygame.init() pas besoin car initialisé dans menu.start()
-
-class Section(): # Type de sauvegarde de donné pour structuré le menu
-
-    def __init__(self,text,action,description="",color=(100,100,100),hold_color=(200,200,200)):
-        self.text = text
-        self.action = action
-        self.color = color
-        self.description = description
-        self.hold_color = hold_color
-        self.parent = None
 
 
 
@@ -55,7 +46,7 @@ class MainMenuPygameGui():
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
         pygame.mixer.music.load("core/rsc/sounds/menu_music.mp3")
         pygame.mixer.music.play(loops=-1)
-        pygame.mixer.music.set_volume(0.5)
+        pygame.mixer.music.set_volume(0.3)
         self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
         self.touches["K_MOUSE"] = len(self.touches.keys())
         logging.debug("pygame.__dict__:"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()]))
@@ -137,6 +128,10 @@ ShowHitbox: si "T", affiche
         logging.info("Setup main menu")
         self.valid_menu_sound.play()
         pygame.time.wait(20)
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load('core/rsc/sounds/music.mp3')
+        pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.set_volume(0.3)
         pygame.mouse.set_cursor(*pygame.cursors.arrow)
         game = jeu(self.config)
         Gui = PyGameGUI(game)

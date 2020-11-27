@@ -6,6 +6,7 @@ import random
 import os
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
+from core.screen.section import Section
 import sys
 #######################################################################################################################################
 
@@ -105,6 +106,8 @@ class PygameGui():
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
+        pygame.mouse.set_cursor(*pygame.cursors.arrow)
+
 
 
 
@@ -181,7 +184,7 @@ class PygameGui():
         if self.game.player.pv <= 0: return
         # mpos = pygame.mouse.get_pos()
         self.ismousedown = pygame.mouse.get_pressed()[0] == 1
-        logging.debug(pygame.mouse.get_pressed()) 
+        logging.debug(pygame.mouse.get_pressed())
 
         pressed = list(pygame.key.get_pressed())
         pressed.append(self.ismousedown)
