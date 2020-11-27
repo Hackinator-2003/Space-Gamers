@@ -7,6 +7,7 @@ import os
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
 from core.classes.Boss import Boss
+
 import sys
 #######################################################################################################################################
 
@@ -106,6 +107,8 @@ class PygameGui():
         texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
         texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
         self.screen.blit(texte,(texte_rect[0],10))
+        pygame.mouse.set_cursor(*pygame.cursors.arrow)
+
 
 
 
