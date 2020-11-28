@@ -31,7 +31,7 @@ class Game_Over():
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
 
     #Initialisation de la classe PygameGui et de ses attributs
-    def __init__(self,screen,config_input,config_gui,touches,size,game):
+    def __init__(self,screen,config_input,config_gui,touches,size,game,score):
         logging.debug("initialisation of Pygame...")
         self.screen = screen
         self.running = False
@@ -41,6 +41,9 @@ class Game_Over():
         self.touches = touches
         self.game = game
         self.size = size
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        self.texte = police.render("SCORE : "+score,True,pygame.Color("#faf489"))
+        self.texte_rect = self.texte.get_rect(center=(self.size[0]/2, 0))
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
         menu = Section("", [Section("Rejouer",self.play),Section("Menu",self.main_menu),Section("Quitter",self.quit,"",(255,50,50),(255,100,100))])
         self.active_section = menu
@@ -80,8 +83,7 @@ class Game_Over():
             self.screen.blit(self.fond,(0,0))
 
             # now print the main text / logo
-            main = title_font.render(self.active_section.text,True, self.active_section.color)
-            self.screen.blit(main,(25,20))
+            self.screen.blit(self.texte,(self.texte_rect[0],10))
 
 
 

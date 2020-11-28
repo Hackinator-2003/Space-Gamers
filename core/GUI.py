@@ -97,17 +97,9 @@ class PygameGui():
 
 
     def callGameOver(self):
-        Game_Over(self.screen,self.input_config,self.gui_config,self.touches,self.size,self.game)
-
-        # # affichage du score
-        # police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 20)
-        # texte = police.render(str(round(self.game.player.score)),True,pygame.Color("#faf489"))
-        # texte_rect = texte.get_rect(center=(self.size[0]/2, 0))
-        # self.screen.blit(texte,(texte_rect[0],10))
-        # pygame.mouse.set_cursor(*pygame.cursors.arrow)
-        # menu = Section("Space Gamers", [Section("Jouer",self.running),Section("Quit",self.quit,"",(255,50,50),(255,100,100))],"logo")
-
-        # flip
+        score=str(round(self.game.player.score))
+        print(score)
+        Game_Over(self.screen,self.input_config,self.gui_config,self.touches,self.size,self.game,score)
 
 
 
