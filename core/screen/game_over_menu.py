@@ -33,6 +33,10 @@ class Game_Over():
     #Initialisation de la classe PygameGui et de ses attributs
     def __init__(self,screen,config_input,config_gui,touches,size,game,score):
         logging.debug("initialisation of Pygame...")
+        pygame.mixer.music.stop()
+        pygame.mixer.music.load("core/rsc/sounds/menu_music.mp3")
+        pygame.mixer.music.play(loops=-1)
+        pygame.mixer.music.set_volume(0.3)
         self.screen = screen
         self.running = False
         self.fond = pygame.image.load("core/rsc/img/game-over.png")

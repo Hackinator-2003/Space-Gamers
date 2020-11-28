@@ -98,7 +98,6 @@ class PygameGui():
 
     def callGameOver(self):
         score=str(round(self.game.player.score))
-        print(score)
         Game_Over(self.screen,self.input_config,self.gui_config,self.touches,self.size,self.game,score)
 
 
