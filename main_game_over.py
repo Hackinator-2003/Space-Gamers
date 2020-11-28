@@ -1,5 +1,5 @@
 ﻿import os
-from core.game import Game
+from core.game import Game as jeu
 from core.screen.game_over_menu import Game_Over as pg
 
 def check_pygame_version():

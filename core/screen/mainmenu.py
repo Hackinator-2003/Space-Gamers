@@ -71,18 +71,16 @@ Perdre une vie    : -200 pts
 Tuer un rouge     : +100 pts
 Tirer sur un rouge: +10  pts
 """)
-        info_opt_inp = Section("Options","texte","""Modifier vos touches dans conf.ini
+        info_opt_inp = Section("Commandes","texte","""
 
-Dans la section "INPUT", en utili-
-sant les noms de touche pygame +
-K_MOUSE pour click souris.
-
-Liste des clées:
- - left  : bouger à gauche
- - right : bouger à droite
- - down  : bouger en bas
- - up    : bouger en haut
- - fire  : tirer
+Liste des commandes:
+ - Aller à gauche  : Flèche gauche ou Q
+ - Aller à droite  : Flèche droite ou D
+ - Aller en bas    : Flèche du bas ou S
+ - Aller en haut   : Flèche du haut ou
+                     Z
+ - Tirer           : Espace ou clic
+                     gauche
 """)
 
         touches = Section("Touches",

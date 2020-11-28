@@ -15,9 +15,9 @@ class Enemy():
         self.fire_timer = 0
         self.fire_speed = fire_speed
         logging.debug("init enemys at "+str(position)+", pv="+str(self.pv))
-    
+
     def update(self,dt):
-        self.fire_timer += dt
+        self.fire_timer += dt/2
         if self.type_ == "normal":
             self.pos[1]+=100*dt
             if self.fire_timer >= self.fire_speed:
@@ -34,7 +34,7 @@ class Enemy():
 
     def __del__(self):
         if self.type_ == "normal":self.game.player.score+=100
-    
+
     def damage(self):
         self.pv -= 1
         if self.type_ == "normal":self.game.player.score+=10

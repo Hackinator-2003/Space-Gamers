@@ -6,7 +6,7 @@ import random
 import os
 from core.classes.enemy import Enemy
 from core.classes.bullet import Bullet
-from core.screen.section import Section
+from core.screen.game_over_menu import Game_Over
 import sys
 #######################################################################################################################################
 
@@ -96,9 +96,7 @@ class PygameGui():
 
 
     def drawGameOver(self):
-
-        game_over = pygame.image.load("core/rsc/img/game-over.png")
-        self.screen.blit(game_over,(0,0))
+        Game_Over(self.screen)
 
 
         # affichage du score

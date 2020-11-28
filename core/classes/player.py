@@ -13,12 +13,12 @@ class Player():
 
     def __init__(self,game,position,pv=3):
         self.pos=position
-        self.score = 0
+        self.score = 100
         self.pv=pv
         self.game = game
         self.lasershot_sound = pygame.mixer.Sound('core/rsc/sounds/laser_shot.wav')
         logging.debug("init player at "+str(position)+", pv="+str(pv))
-        self.fire_timer = 0 
+        self.fire_timer = 0
 
     def damage(self):
         self.pv -= 1

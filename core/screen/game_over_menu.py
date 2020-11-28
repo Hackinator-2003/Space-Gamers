@@ -9,7 +9,7 @@ from core.configparser import get_config, save_config
 from core.screen.section import Section
 #######################################################################################################################################
 
-# pygame.init() pas besoin car initialisé dans menu.start()
+
 
 
 
@@ -36,44 +36,14 @@ class Game_Over():
     #Initialisation de la classe PygameGui et de ses attributs
     def __init__(self):
         logging.debug("initialisation of Pygame...")
-        pygame.init()
         self.screen = None
         self.running = False
-        self.size =(550,700)
-        self.config = get_config()
         self.fond = pygame.image.load("core/rsc/img/game-over.png")
         self.input_config = self.config["INPUT"]
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
-        pygame.mixer.music.load("core/rsc/sounds/menu_music.mp3")
-        pygame.mixer.music.play(loops=-1)
-        pygame.mixer.music.set_volume(0.3)
-        self.touches = {key:value for key,value in pygame.__dict__.items() if key[:2] == "K_" or key[:2] == "KM"}
-        self.touches["K_MOUSE"] = len(self.touches.keys())
-        logging.debug("pygame.__dict__:"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()]))
-        logging.debug("touches={"+"".join([str(x)+":"+str(y)+", " for x,y in self.touches.items()])+"}")
-        logging.debug("Creating sections")
-
         menu = Section("", [Section("Rejouer",self.play),Section("Menu",self.main_menu),Section("Quitter",self.quit,"",(255,50,50),(255,100,100))])
         self.active_section = menu
         self.__mainLoop()
-
-    def setconfig_zqsd(self):
-        self.config["INPUT"]["left"] = "K_a"
-        self.config["INPUT"]["right"] = "K_d"
-        self.config["INPUT"]["up"] = "K_w"
-        self.config["INPUT"]["down"] = "K_s"
-        self.config["INPUT"]["fire"] = "K_MOUSE"
-        save_config(self.config)
-
-    def setconfig_fleches(self):
-        self.config["INPUT"]["left"] = "K_LEFT"
-        self.config["INPUT"]["right"] = "K_RIGHT"
-        self.config["INPUT"]["up"] = "K_UP"
-        self.config["INPUT"]["down"] = "K_DOWN"
-        self.config["INPUT"]["fire"] = "K_SPACE"
-        save_config(self.config)
-
-
 
     def play(self):
         logging.info("Setup main menu")
