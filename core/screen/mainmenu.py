@@ -6,6 +6,7 @@ from core.GUI import PygameGui as PyGameGUI
 import sys
 from core.configparser import get_config, save_config
 from core.screen.section import Section
+from core.classes.exeptions import *
 #######################################################################################################################################
 
 # pygame.init() pas besoin car initialisé dans menu.start()
@@ -115,17 +116,22 @@ Liste des commandes:
 
 
     def play(self):
-        logging.info("Setup main menu")
-        self.valid_menu_sound.play()
-        pygame.time.wait(20)
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load('core/rsc/sounds/music.mp3')
-        pygame.mixer.music.play(loops=-1)
-        pygame.mixer.music.set_volume(0.3)
-        pygame.mouse.set_cursor(*pygame.cursors.arrow)
-        game = jeu(self.config)
-        Gui = PyGameGUI(game)
-        Gui.start(self.screen)
+        try:
+            logging.info("Setup main menu")
+            self.valid_menu_sound.play()
+            pygame.time.wait(20)
+            pygame.mixer.music.stop()
+            pygame.mixer.music.load('core/rsc/sounds/music.mp3')
+            pygame.mixer.music.play(loops=-1)
+            pygame.mixer.music.set_volume(0.3)
+            pygame.mouse.set_cursor(*pygame.cursors.arrow)
+            game = jeu(self.config)
+            Gui = PyGameGUI(game)
+            Gui.start(self.screen)
+        except ReplayEx as e:
+            self.play()
+        except MenuEx as e:
+            return
 
 
 #######################################################################################################################################################

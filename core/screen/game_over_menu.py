@@ -1,12 +1,9 @@
 ﻿################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
 import logging
 import pygame
-from core.game import Game as jeu
-from core.GUI import PygameGui as PyGameGUI
-from core.screen.mainmenu import MainMenuPygameGui as MMg
 import sys
-from core.configparser import get_config, save_config
 from core.screen.section import Section
+from core.classes.exeptions import *
 #######################################################################################################################################
 
 
@@ -34,38 +31,26 @@ class Game_Over():
 ################################# CREATION DE LA FONCTION D'INITIALISATION DE LA CLASSE PYGAMEGUI AVEC SES ATTRIBUTS ##################################
 
     #Initialisation de la classe PygameGui et de ses attributs
-    def __init__(self):
+    def __init__(self,screen,config_input,config_gui,touches,size,game):
         logging.debug("initialisation of Pygame...")
-        self.screen = None
+        self.screen = screen
         self.running = False
         self.fond = pygame.image.load("core/rsc/img/game-over.png")
-        self.input_config = self.config["INPUT"]
+        self.config_gui = config_gui
+        self.input_config = config_input
+        self.touches = touches
+        self.game = game
+        self.size = size
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
         menu = Section("", [Section("Rejouer",self.play),Section("Menu",self.main_menu),Section("Quitter",self.quit,"",(255,50,50),(255,100,100))])
         self.active_section = menu
         self.__mainLoop()
 
     def play(self):
-        logging.info("Setup main menu")
-        self.valid_menu_sound.play()
-        pygame.time.wait(20)
-        pygame.mixer.music.stop()
-        pygame.mixer.music.load('core/rsc/sounds/music.mp3')
-        pygame.mixer.music.play(loops=-1)
-        pygame.mixer.music.set_volume(0.3)
-        pygame.mouse.set_cursor(*pygame.cursors.arrow)
-        game = jeu(self.config)
-        Gui = PyGameGUI(game)
-        Gui.start(self.screen)
+        raise ReplayEx()
 
     def main_menu(self):
-        logging.info("Setup main menu")
-        self.valid_menu_sound.play()
-        pygame.time.wait(20)
-        pygame.mouse.set_cursor(*pygame.cursors.arrow)
-        game = jeu(self.config)
-        Gui = MMg()
-        Gui.start()
+        raise MenuEx()
 
 
 #######################################################################################################################################################
@@ -95,12 +80,8 @@ class Game_Over():
             self.screen.blit(self.fond,(0,0))
 
             # now print the main text / logo
-            if self.active_section.description != "logo":
-                main = title_font.render(self.active_section.text,True, self.active_section.color)
-                self.screen.blit(main,(25,20))
-            else:
-                main = self.logo
-                self.screen.blit(main,(50,50))
+            main = title_font.render(self.active_section.text,True, self.active_section.color)
+            self.screen.blit(main,(25,20))
 
 
 
