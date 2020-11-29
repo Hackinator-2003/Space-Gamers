@@ -42,10 +42,12 @@ class Enemy():
                 self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"down",300))
                 self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"downleft",300))
                 self.game.en_bullets.append(Bullet([self.pos[0],self.pos[1]+self.hitbox_rad+1],"downright",300))
+        
+        if self.pos[1] >= 700: self.pos[1] = 0
 
     def __del__(self):
-        if self.type_ == "normal":self.game.player.score+=100
+        if self.type_ == "boss":self.game.player.score+=300
+        else:self.game.player.score+=100
 
     def damage(self):
         self.pv -= 1
-        if self.type_ == "normal":self.game.player.score+=10
