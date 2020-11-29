@@ -45,9 +45,9 @@ class Game_Over():
         self.touches = touches
         self.game = game
         self.size = size
-        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 40)
+        police = pygame.font.Font('core/rsc/fonts/GameBattle.ttf', 30)
         self.texte = police.render("SCORE : "+score,True,pygame.Color("#faf489"))
-        self.texte_rect = self.texte.get_rect(center=(self.size[0]/2, 0))
+        self.texte_rect = self.texte.get_rect(center=(self.size[0]/2, 400))
         self.valid_menu_sound = pygame.mixer.Sound('core/rsc/sounds/menu_valid_sound.wav')
         menu = Section("", [Section("Rejouer",self.play),Section("Menu",self.main_menu),Section("Quitter",self.quit,"",(255,50,50),(255,100,100))])
         self.active_section = menu
@@ -87,7 +87,7 @@ class Game_Over():
             self.screen.blit(self.fond,(0,0))
 
             # now print the main text / logo
-            self.screen.blit(self.texte,(self.texte_rect[0],10))
+            self.screen.blit(self.texte,(self.texte_rect[0],500))
 
 
 

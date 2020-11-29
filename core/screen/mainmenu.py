@@ -89,7 +89,7 @@ Liste des commandes:
              Section("<touches2.png", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
-        info = Section("Information", [info_credits,info_credits,info_opt_inp])
+        info = Section("Information", [info_credits,info_pts,info_opt_inp])
         info.parent = "Space Gamers"
         menu = Section("Space Gamers", [Section("Jouer",self.play),touches,info,Section("Quitter",self.quit,"",(255,50,50),(255,100,100))],"logo")
         info.action.append(menu)
