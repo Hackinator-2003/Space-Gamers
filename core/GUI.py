@@ -126,7 +126,7 @@ class PygameGui():
         # affichange des missiles des ennemies
         for bullet in self.game.en_bullets:
             if bullet.type_ == "up":self.screen.blit(fire,(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
-            elif bullet.type_ == "downleft" or bullet.type_ == "downright" : self.screen.blit(fire_round,(bullet.pos[0]-fire_round.get_rect().width//2,bullet.pos[1]-fire_round.get_rect().height//2))
+            elif bullet.type_ == "downleft" or bullet.type_ == "downright" or bullet.type_ == "direction" : self.screen.blit(fire_round,(bullet.pos[0]-fire_round.get_rect().width//2,bullet.pos[1]-fire_round.get_rect().height//2))
             else: self.screen.blit(pygame.transform.flip(fire,False,True),(bullet.pos[0]-fire.get_rect().width//2,bullet.pos[1]-fire.get_rect().height//2))
 
             if self.gui_config["ShowHitbox"] == "T":
@@ -138,7 +138,8 @@ class PygameGui():
             if self.gui_config["ShowHitbox"] == "T":
                 rad = enemy.hitbox_rad
                 pygame.draw.rect(self.screen, (0,255,0), (enemy.pos[0]-rad,enemy.pos[1]-rad,rad*2,rad*2),1)
-            if enemy.type_ == "normal": look =pygame.image.load(random.choice(self.images))
+            if enemy.type_ == "basic": look = pygame.image.load("core/rsc/img/enemies/blue-enemy.png")
+            elif enemy.type_ == "move": look = pygame.image.load(random.choice(self.images))
             elif enemy.type_ == "boss": look = pygame.image.load("core/rsc/img/boss.png")
             else: look = pygame.image.load(random.choice(self.images))
             self.screen.blit(look,(enemy.pos[0]-look.get_rect().width//2,enemy.pos[1]-look.get_rect().height//2))
