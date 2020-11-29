@@ -22,7 +22,7 @@ class Player():
 
     def damage(self):
         self.pv -= 1
-        self.score -= 200
+        #self.score -= 200
 
     def update(self,dt):
         self.fire_timer += dt

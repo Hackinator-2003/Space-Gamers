@@ -19,8 +19,10 @@ class Game():
         self.en_bullets = []
         self.general_timer = 0
         self.timers = {
-            "en_basic":[0,3], # new enemy
-            "boss":[0,30]
+            # format : timer, temps_appartition, temps_appartition_min, temps_dimunution
+            "en_basic":[2,15,10,0.8], # new enemy
+            "en_move":[7,15,6,0.8], # new enemy
+            "boss":[0,30,20,0.8]
         }
 
 
@@ -66,15 +68,23 @@ class Game():
         self.general_timer += dt
         for x in self.timers.keys():
             self.timers[x][0] += dt
+        
+        def res(name):
+            self.timers[name][0] = 0
+            self.timers[name][1] = (self.timers[name][1]-self.timers[name][2])*self.timers[name][3]+self.timers[name][2]
+
 
         if self.timers["en_basic"][0] >= self.timers["en_basic"][1]:
-            self.timers["en_basic"][0] = 0
-            self.timers["en_basic"][1] * 0.7
-            self.enemys.append(Enemy(self,"normal",[randint(20,530),0]))
+            res("en_basic")
+            self.enemys.append(Enemy(self,"basic",[randint(20,530),0]))
+        
+        if self.timers["en_move"][0] >= self.timers["en_move"][1]:
+            res("en_move")
+            self.enemys.append(Enemy(self,"move",[randint(20,530),0]))
 
 
         if self.timers["boss"][0] >= self.timers["boss"][1]:
-            self.timers["boss"][0] = 0
+            res("boss")
             self.enemys.append(Enemy(self,"boss",[250,0],15,1,40))
 
 
