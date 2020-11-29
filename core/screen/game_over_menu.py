@@ -87,7 +87,7 @@ class Game_Over():
             self.screen.blit(self.fond,(0,0))
 
             # now print the main text / logo
-            self.screen.blit(self.texte,(self.texte_rect[0],250))
+            self.screen.blit(self.texte,(self.texte_rect[0],225))
 
 
 
