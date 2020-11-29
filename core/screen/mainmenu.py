@@ -103,6 +103,8 @@ Liste des commandes:
         self.config["INPUT"]["up"] = "K_w"
         self.config["INPUT"]["down"] = "K_s"
         self.config["INPUT"]["fire"] = "K_MOUSE"
+        for value in self.active_section.action:
+            if value.text == self.active_section.parent:self.active_section = value
         save_config(self.config)
 
     def setconfig_fleches(self):
@@ -111,6 +113,8 @@ Liste des commandes:
         self.config["INPUT"]["up"] = "K_UP"
         self.config["INPUT"]["down"] = "K_DOWN"
         self.config["INPUT"]["fire"] = "K_SPACE"
+        for value in self.active_section.action:
+            if value == self.active_section.parent:self.active_section = value
         save_config(self.config)
 
 
