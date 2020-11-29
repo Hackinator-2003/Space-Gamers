@@ -1,11 +1,13 @@
-﻿from core.game import Game
+﻿################################################ IMPORTATIONS DES MODULES NECESSAIRES ################################################
+
+from core.game import Game
 from core.screen.mainmenu import MainMenuPygameGui as pg
 
 def check_pygame_version():
     import logging
     import pygame.version as p
 
-    if p.ver.startswith("1.9"): logging.info("Bonne version de pygame !"); return True
+    if p.ver.startswith("1.9"): logging.info("BOnne version de pygame !"); return True
 
     logging.warning("Votre version de pygame n'est pas bonne: vous avez "+str(p.ver)+" et il vous faut la version 1.9.x")
     logging.info("Installation de la bonne version...")
