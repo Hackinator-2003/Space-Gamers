@@ -68,18 +68,16 @@ NSI à Saint-Dominique.""")
         info_pts = Section("Points","texte","""Comment sont comptabiliser les points ?
 
 Tirer             : -1   pt
-Perdre une vie    : -200 pts
-Tuer un rouge     : +100 pts
-Tirer sur un rouge: +10  pts
+Tuer un boss      : +300 pts
+Tuer un enemis    : +100 pts
 """)
         info_opt_inp = Section("Commandes","texte","""
 
 Liste des commandes:
  - Aller à gauche  : Flèche gauche ou Q
  - Aller à droite  : Flèche droite ou D
- - Aller en bas    : Flèche du bas ou S
- - Aller en haut   : Flèche du haut ou
-                     Z
+ - Aller en bas    : Flèche bas    ou S
+ - Aller en haut   : Flèche haut   ou Z
  - Tirer           : Espace ou clic
                      gauche
 """)
@@ -89,7 +87,7 @@ Liste des commandes:
              Section("<touches2.png", self.setconfig_fleches)]
         )
         touches.parent = "Space Gamers"
-        info = Section("Information", [info_credits,info_pts,info_opt_inp])
+        info = Section("Informations", [info_credits,info_pts,info_opt_inp])
         info.parent = "Space Gamers"
         menu = Section("Space Gamers", [Section("Jouer",self.play),touches,info,Section("Quitter",self.quit,"",(255,50,50),(255,100,100))],"logo")
         info.action.append(menu)
