@@ -9,10 +9,6 @@ from core.screen.section import Section
 from core.classes.exeptions import *
 #######################################################################################################################################
 
-# pygame.init() pas besoin car initialisé dans menu.start()
-
-
-
 ############################################### CREATION DE LA CLASSE PYGAMEGUI #######################################################
 
 #Création de la classe PygameGui
